@@ -1,5 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
 
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/sorting-visualizer/'
+  }
+} : {}
+
 export default {
   /*
   ** Nuxt rendering mode
@@ -50,6 +56,10 @@ export default {
     '@nuxtjs/vuetify',
   ],
   /*
+  ** Router for GH_PAGES
+  */
+  ...routerBase,
+  /*
   ** Nuxt.js modules
   */
   modules: [
@@ -80,6 +90,5 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-  },
-  router: { base: '/sorting-visualizer/' }
+  }
 }
