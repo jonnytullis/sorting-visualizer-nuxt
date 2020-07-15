@@ -32,7 +32,7 @@
         </v-layout>
       </v-col>
     </v-row>
-    <sort-table ref="sortTable" :num-nodes="numNodes" :max-num="200" :min-num="10" />
+    <sort-table ref="sortTable" :num-nodes="numNodes" :max-num="200" :min-num="10" v-bind="$attrs" />
   </v-container>
 </template>
 
@@ -40,7 +40,7 @@
 import SortTable from '../components/SortTable'
 
 export default {
-  name: "Index",
+  name: "SortingVisualizer",
   components: {
     SortTable
   },

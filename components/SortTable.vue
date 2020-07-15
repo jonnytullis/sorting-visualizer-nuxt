@@ -1,5 +1,5 @@
 <template>
-  <v-card :height="tableHeight" min-width="90%" class="pa-4">
+  <v-card :height="tableHeight" min-width="90%" class="pa-4" v-bind="$attrs">
     <v-layout fill-height justify-center align-end>
       <bar
         v-for="node of nodes"
