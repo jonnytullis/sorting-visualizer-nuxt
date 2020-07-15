@@ -17,7 +17,7 @@
           <v-slider
             v-model="numNodes"
             color="secondary"
-            min="5"
+            min="1"
             :max="$vuetify.breakpoint.xsOnly ? 75 : 100"
             hide-details
           />
