@@ -3,7 +3,7 @@
     <v-row class="mb-6">
       <v-col>
         <v-layout justify-center>
-          <v-btn color="amber darken-4" @click="generateNewArray">
+          <v-btn color="amber darken-3" @click="generateNewArray">
             <v-icon class="mr-2">
               mdi-restore
             </v-icon>
@@ -16,7 +16,8 @@
           <span>Number of items: &nbsp;&nbsp;</span>
           <v-slider
             v-model="numNodes"
-            color="amber darken-4"
+            color="amber darken-3"
+            background-color="amber darken-3"
             min="1"
             :max="$vuetify.breakpoint.xsOnly ? 75 : 100"
             hide-details
@@ -26,7 +27,7 @@
       </v-col>
       <v-col>
         <v-layout justify-center>
-          <v-btn color="amber darken-4">
+          <v-btn color="amber darken-3">
             Sort
           </v-btn>
         </v-layout>
