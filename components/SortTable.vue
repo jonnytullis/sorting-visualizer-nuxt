@@ -2,8 +2,9 @@
   <v-card :height="tableHeight" min-width="90%" class="pa-4">
     <v-layout fill-height justify-center align-end>
       <bar
-        v-for="bar of nodes"
-        :value="bar"
+        v-for="node of nodes"
+        :key="node.index"
+        :value="node"
         tile
         flat
         :style="`margin-right: ${nodeMargin}px`"
@@ -13,7 +14,7 @@
 </template>
 
 <script>
-import Bar from './Bar'
+import Bar from './Node'
 import SortNode from './SortNode'
 
 export default {
@@ -60,6 +61,10 @@ export default {
           node.width = this.nodeWidth
         }
       }
+    },
+    generateNewArray () {
+      this.nodes = []
+      this.init()
     },
     setNodeWidth () {
       const tableMargin = 50

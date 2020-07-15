@@ -6,7 +6,7 @@
     :color="value.color"
     v-bind="$attrs"
   >
-    <v-layout v-show="showLabels" fill-height align-end justify-center>
+    <v-layout v-show="showLabels" fill-height align-end justify-center class="font-weight-bold">
       {{ value.value }}
     </v-layout>
   </v-card>
