@@ -8,14 +8,13 @@
   "private": false,
   "scripts": {
     "dev": "nuxt",
-    "build:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt build",
-    "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt build && nuxt export",
     "build": "nuxt build",
     "generate": "nuxt generate",
     "start": "nuxt start",
     "export": "nuxt export",
     "serve": "nuxt serve",
-    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
+    "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt build && nuxt export",
+    "deploy:gh-pages": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "nuxt": "^2.13.0",
