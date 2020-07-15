@@ -1,7 +1,7 @@
 {
   "name": "sorting-visualizer",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
