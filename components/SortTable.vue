@@ -52,7 +52,7 @@ export default {
             num,
             this.nodeWidth,
             `${Math.floor((num / this.maxNum) * 100)}%`,
-            'primary'
+            'blue darken-2'
           ))
         } else {
           this.nodes.pop()
