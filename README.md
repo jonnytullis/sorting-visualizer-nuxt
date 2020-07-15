@@ -1,20 +1,5 @@
 # sorting-visualizer
 
-## Build Setup
+# CURRENTLY IN DEVELOPMENT
 
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+I built this app because I'm fascinated by sorting algorithms. I've seen other apps like this, but I wanted to try my hand at building one for myself from scratch. Play with it and let me know what you think! You can see it in action at https://jonnytullis.github.io/sorting-visualizer/
