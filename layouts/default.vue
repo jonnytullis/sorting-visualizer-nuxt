@@ -6,11 +6,11 @@
     >
       <v-toolbar-title v-text="title" />
     </v-app-bar>
-    <v-content>
-      <v-container>
+    <v-main>
+      <v-container fluid>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
     <v-footer
       :absolute="!fixed"
       app
@@ -22,6 +22,7 @@
 
 <script>
 export default {
+  name: 'default',
   data () {
     return {
       fixed: false,
