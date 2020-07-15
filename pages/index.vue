@@ -17,7 +17,7 @@
           <v-slider
             v-model="numNodes"
             color="amber darken-3"
-            background-color="amber darken-3"
+            track-color="grey darken-3"
             min="1"
             :max="$vuetify.breakpoint.xsOnly ? 75 : 100"
             hide-details

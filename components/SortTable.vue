@@ -1,7 +1,7 @@
 <template>
-  <v-card :height="tableHeight" min-width="90%" class="pa-4" v-bind="$attrs">
+  <v-card :height="tableHeight" min-width="90%" class="pa-8" v-bind="$attrs">
     <v-layout fill-height justify-center align-end>
-      <bar
+      <node
         v-for="node of nodes"
         :key="node.index"
         :value="node"
@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import Bar from './Node'
+import Node from './Node'
 import SortNode from './SortNode'
 
 export default {
   name: "SortTable",
   components: {
-    Bar
+    Node
   },
   props: {
     numNodes: {
