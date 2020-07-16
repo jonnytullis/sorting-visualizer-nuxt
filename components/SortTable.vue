@@ -16,6 +16,7 @@
 <script>
 import Node from './Node'
 import SortNode from './SortNode'
+import QuickSort from '../mixins/QuickSort'
 
 export default {
   name: "SortTable",
@@ -71,6 +72,9 @@ export default {
       const tableWidth = window.innerWidth - tableMargin
       const totalMarginSpace = (this.nodeMargin - 1) * this.numNodes
       this.nodeWidth = Math.floor((tableWidth - totalMarginSpace) / this.numNodes)
+    },
+    quickSort () {
+      this.nodes = QuickSort.sort(this.nodes)
     }
   },
   watch: {

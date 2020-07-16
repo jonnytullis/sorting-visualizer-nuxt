@@ -27,7 +27,7 @@
       </v-col>
       <v-col>
         <v-layout justify-center>
-          <v-btn color="amber darken-3">
+          <v-btn color="amber darken-3" @click="quickSort">
             Sort
           </v-btn>
         </v-layout>
@@ -54,6 +54,11 @@ export default {
     generateNewArray () {
       if (this.$refs.sortTable) {
         this.$refs.sortTable.generateNewArray()
+      }
+    },
+    quickSort () {
+      if (this.$refs.sortTable) {
+        this.$refs.sortTable.quickSort()
       }
     }
   }
