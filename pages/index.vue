@@ -11,7 +11,7 @@
           </v-btn>
         </v-layout>
       </v-col>
-      <v-col>
+      <v-col cols="5">
         <v-layout align-center justify-center>
           <span>Number of items: &nbsp;&nbsp;</span>
           <v-slider
@@ -25,10 +25,21 @@
           &nbsp; {{ numNodes }}
         </v-layout>
       </v-col>
-      <v-col>
+      <v-col cols="2">
         <v-layout justify-center>
-          <v-btn color="amber darken-3" @click="quickSort">
-            Sort
+          <v-select
+            v-model="selectedSortType"
+            :items="sortTypes"
+            filled
+            outlined
+            dense
+          />
+        </v-layout>
+      </v-col>
+      <v-col cols="2">
+        <v-layout justify-center>
+          <v-btn color="amber darken-3" @click="sort">
+            Sort!
           </v-btn>
         </v-layout>
       </v-col>
@@ -47,13 +58,20 @@ export default {
   },
   data () {
     return {
-      numNodes: 20
+      numNodes: 20,
+      sortTypes: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
+      selectedSortType: 'Quick Sort'
     }
   },
   methods: {
     generateNewArray () {
       if (this.$refs.sortTable) {
         this.$refs.sortTable.generateNewArray()
+      }
+    },
+    sort () {
+      if (this.selectedSortType === 'Quick Sort') {
+        this.quickSort()
       }
     },
     quickSort () {
