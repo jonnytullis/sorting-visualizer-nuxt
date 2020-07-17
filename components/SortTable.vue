@@ -34,6 +34,9 @@ export default {
     },
     minNum: {
       type: Number
+    },
+    stepTime: {
+      type: Number
     }
   },
   data () {

@@ -1,19 +1,48 @@
 <template>
   <v-container fluid class="pa-0">
-    <v-row class="mb-6 mx-12" justify="space-between">
+    <v-row class="my-6 mx-12" justify="space-between" align="center">
       <v-col cols="6">
-        <v-layout align-center>
-          <span>Number of items: &nbsp;&nbsp;</span>
-          <v-slider
-            v-model="numNodes"
-            color="secondary"
-            track-color="grey darken-3"
-            min="1"
-            :max="$vuetify.breakpoint.xsOnly ? 75 : 100"
-            hide-details
-          />
-          &nbsp; {{ numNodes }}
-        </v-layout>
+        <v-slider
+          v-model="speed"
+          color="secondary"
+          min="0"
+          :max="maxStepTime - 100"
+          class="mb-4"
+        >
+          <template #prepend>
+            <v-layout align-center class="mr-3">
+              Speed
+            </v-layout>
+            <v-icon>
+              mdi-speedometer-slow
+            </v-icon>
+          </template>
+          <template #append>
+            <v-icon>
+              mdi-speedometer
+            </v-icon>
+          </template>
+        </v-slider>
+        <v-slider
+          v-model="numNodes"
+          color="secondary"
+          min="1"
+          :max="$vuetify.breakpoint.xsOnly ? 75 : 100"
+          hide-detail
+          hide-details
+          class="mr-4"
+        >
+          <template #prepend>
+            <v-layout align-center>
+              #&nbsp;of&nbsp;items&nbsp;
+            </v-layout>
+          </template>
+          <template #append>
+            <v-layout align-center>
+              {{ numNodes }}
+            </v-layout>
+          </template>
+        </v-slider>
       </v-col>
       <v-col cols="2">
         <v-btn color="secondary" @click="generateNewArray">
@@ -31,6 +60,7 @@
           filled
           outlined
           dense
+          hide-details
         />
       </v-col>
       <v-col cols="1">
@@ -39,7 +69,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <sort-table ref="sortTable" :num-nodes="numNodes" :max-num="200" :min-num="10" v-bind="$attrs" />
+    <sort-table ref="sortTable" :num-nodes="numNodes" :max-num="200" :min-num="10" :step-time="stepTime" v-bind="$attrs" />
   </v-container>
 </template>
 
@@ -55,7 +85,9 @@ export default {
     return {
       numNodes: 8,
       sortTypes: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
-      selectedSortType: 'Quick Sort'
+      selectedSortType: 'Quick Sort',
+      speed: 0,
+      maxStepTime: 2000
     }
   },
   methods: {
@@ -64,6 +96,11 @@ export default {
     },
     sort () {
       this.$refs.sortTable.sort(this.selectedSortType)
+    }
+  },
+  computed: {
+    stepTime () {
+      return this.maxStepTime - this.speed
     }
   }
 }

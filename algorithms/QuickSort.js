@@ -1,5 +1,7 @@
 
 export default class QuickSort {
+
+
   async sort (arr) {
     await this.quickSort(arr, 0, arr.length - 1)
     await sleep()
