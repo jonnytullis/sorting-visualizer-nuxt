@@ -1,22 +1,12 @@
 <template>
   <v-container fluid class="pa-0">
-    <v-row class="mb-6">
-      <v-col>
-        <v-layout justify-center>
-          <v-btn color="amber darken-3" @click="generateNewArray">
-            <v-icon class="mr-2">
-              mdi-restore
-            </v-icon>
-            Generate New
-          </v-btn>
-        </v-layout>
-      </v-col>
-      <v-col cols="5">
-        <v-layout align-center justify-center>
+    <v-row class="mb-6 mx-12" justify="space-between">
+      <v-col cols="6">
+        <v-layout align-center>
           <span>Number of items: &nbsp;&nbsp;</span>
           <v-slider
             v-model="numNodes"
-            color="amber darken-3"
+            color="secondary"
             track-color="grey darken-3"
             min="1"
             :max="$vuetify.breakpoint.xsOnly ? 75 : 100"
@@ -26,22 +16,27 @@
         </v-layout>
       </v-col>
       <v-col cols="2">
-        <v-layout justify-center>
-          <v-select
-            v-model="selectedSortType"
-            :items="sortTypes"
-            filled
-            outlined
-            dense
-          />
-        </v-layout>
+        <v-btn color="secondary" @click="generateNewArray">
+          <v-icon class="mr-2">
+            mdi-restore
+          </v-icon>
+          Regenerate
+        </v-btn>
       </v-col>
       <v-col cols="2">
-        <v-layout justify-center>
-          <v-btn color="amber darken-3" @click="sort">
-            Sort!
-          </v-btn>
-        </v-layout>
+        <v-select
+          v-model="selectedSortType"
+          :items="sortTypes"
+          item-color="secondary"
+          filled
+          outlined
+          dense
+        />
+      </v-col>
+      <v-col cols="1">
+        <v-btn color="secondary" @click="sort">
+          Sort!
+        </v-btn>
       </v-col>
     </v-row>
     <sort-table ref="sortTable" :num-nodes="numNodes" :max-num="200" :min-num="10" v-bind="$attrs" />
@@ -58,26 +53,17 @@ export default {
   },
   data () {
     return {
-      numNodes: 20,
+      numNodes: 8,
       sortTypes: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
       selectedSortType: 'Quick Sort'
     }
   },
   methods: {
     generateNewArray () {
-      if (this.$refs.sortTable) {
-        this.$refs.sortTable.generateNewArray()
-      }
+      this.$refs.sortTable.generateNewArray()
     },
     sort () {
-      if (this.selectedSortType === 'Quick Sort') {
-        this.quickSort()
-      }
-    },
-    quickSort () {
-      if (this.$refs.sortTable) {
-        this.$refs.sortTable.quickSort()
-      }
+      this.$refs.sortTable.sort(this.selectedSortType)
     }
   }
 }

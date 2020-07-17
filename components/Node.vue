@@ -15,7 +15,7 @@
 <script>
 import SortNode from './SortNode'
 export default {
-  name: "Bar",
+  name: "Node",
   props: {
     value: {
       type: SortNode
@@ -27,11 +27,13 @@ export default {
     }
   },
   watch: {
-    'value.width': {
+    'value': {
+      immediate: true,
+      deep: true,
       handler: function () {
         this.showLabels = this.value.width > 30
-      },
-      immediate: true
+        this.$emit('change')
+      }
     }
   }
 }
