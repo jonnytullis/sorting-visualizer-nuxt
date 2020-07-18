@@ -3,7 +3,7 @@ export default class QuickSort {
 
   async sort (arr) {
     await this.quickSort(arr, 0, arr.length - 1)
-    await sleep(1000)
+    await this.sleep(1000)
     return new Promise(resolve => resolve())
   }
 
@@ -20,30 +20,30 @@ export default class QuickSort {
   async partition (arr, low, high) {
     let pivot = arr[high]
     pivot.color = color.pivot
-    await sleep()
+    await this.sleep()
 
     let i = low - 1 // latest index less than the pivot value. Starts as -1
 
     for (let j = low; j <= high - 1; j++) {
       arr[j].color = color.current
-      await sleep()
+      await this.sleep()
       if (arr[j].value <= pivot.value) {
         i++
         arr[j].color = color.lessThanPivot
-        await sleep()
+        await this.sleep()
 
         arr[i].color = color.swap
         arr[j].color = color.swap
-        await sleep()
+        await this.sleep()
 
         arr.swap(i, j)
-        await sleep()
+        await this.sleep()
 
         arr[i].color = color.lessThanPivot
         if (i !== j) {
           arr[j].color = color.primary
         }
-        await sleep()
+        await this.sleep()
       } else {
         // arr[j] is greater than pivot value
         arr[j].color = color.primary
@@ -53,6 +53,11 @@ export default class QuickSort {
     arr.swap(i + 1, high)
     return new Promise(resolve => resolve(i + 1))
   }
+
+  stepTime = 400
+  sleep (ms = this.stepTime) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }
 
 Array.prototype.swap = function (x, y) {
@@ -60,13 +65,6 @@ Array.prototype.swap = function (x, y) {
   this[x] = this[y]
   this[y] = temp
 }
-
-let stepTime = 0
-function sleep (ms = stepTime) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
 
 const color = {
   primary: 'primary',

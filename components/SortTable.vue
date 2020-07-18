@@ -125,6 +125,9 @@ export default {
         ))
       }
       this.isExecuting = false
+    },
+    setStepTime (ms) {
+      quickSort.stepTime = ms
     }
   }
 }

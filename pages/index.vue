@@ -8,6 +8,7 @@
           min="0"
           :max="maxStepTime"
           class="mb-4"
+          @input="setSpeed"
         >
           <template #prepend>
             <v-layout align-center class="mr-4">
@@ -86,12 +87,15 @@ export default {
   },
   data () {
     return {
-      numNodes: 8,
+      numNodes: 20,
       sortTypes: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
       selectedSortType: 'Quick Sort',
-      speed: 0,
+      speed: 1000,
       maxStepTime: 2000
     }
+  },
+  mounted() {
+    this.setSpeed()
   },
   methods: {
     generateNewArray () {
@@ -102,6 +106,9 @@ export default {
     },
     updateTableView () {
       this.$refs.sortTable.init()
+    },
+    setSpeed () {
+      this.$refs.sortTable.setStepTime(this.stepTime)
     }
   },
   computed: {
