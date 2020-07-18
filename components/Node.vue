@@ -1,15 +1,8 @@
 <template>
-  <v-card
-    :key="value.width"
-    :height="value.height"
-    :width="value.width"
-    :color="value.color"
-    v-bind="$attrs"
-  >
-    <v-layout v-show="showLabels" fill-height align-end justify-center class="font-weight-bold">
-      {{ value.value }}
-    </v-layout>
-  </v-card>
+  <div
+    :style="`height:${value.height}; width:${value.width}px;`"
+    :class="value.color"
+  />
 </template>
 
 <script>

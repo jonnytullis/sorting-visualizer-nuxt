@@ -47,6 +47,9 @@ export default {
       tableHeight: 550,
     }
   },
+  mounted() {
+    this.init()
+  },
   methods: {
     init () {
       this.setNodeWidth()
@@ -89,14 +92,6 @@ export default {
     colorAll (color) {
       for (const node of this.nodes) {
         node.color = color
-      }
-    }
-  },
-  watch: {
-    numNodes: {
-      immediate: true,
-      handler: function () {
-        this.init()
       }
     }
   }

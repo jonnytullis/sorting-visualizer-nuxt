@@ -6,8 +6,8 @@
           v-model="speed"
           color="secondary"
           min="0"
-          :max="maxStepTime - 100"
-          class="mb-4"
+          :max="maxStepTime"
+          class="mb-4 mr-3"
         >
           <template #prepend>
             <v-layout align-center class="mr-3">
@@ -26,11 +26,12 @@
         <v-slider
           v-model="numNodes"
           color="secondary"
-          min="1"
+          min="5"
           :max="$vuetify.breakpoint.xsOnly ? 75 : 100"
           hide-detail
           hide-details
           class="mr-4"
+          @input="updateTableView"
         >
           <template #prepend>
             <v-layout align-center>
@@ -96,6 +97,9 @@ export default {
     },
     sort () {
       this.$refs.sortTable.sort(this.selectedSortType)
+    },
+    updateTableView () {
+      this.$refs.sortTable.init()
     }
   },
   computed: {
