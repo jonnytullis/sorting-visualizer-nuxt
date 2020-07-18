@@ -1,5 +1,25 @@
 <template>
   <div :style="`height:${tableHeight}px; min-width:90%;border-radius:10px;box-shadow:2px 2px 3px #191919`" class="pa-8 accent">
+    <div>
+      <v-fade-transition>
+        <v-btn
+          v-if="isExecuting"
+          min-height="50"
+          min-width="50"
+          max-width="50"
+          max-height="50"
+          rounded
+          absolute
+          color="red"
+          class="ma-n4"
+          @click="stop"
+        >
+          <v-icon>
+            mdi-stop
+          </v-icon>
+        </v-btn>
+      </v-fade-transition>
+    </div>
     <v-layout fill-height justify-center align-end>
       <node
         v-for="node of nodes"
@@ -45,6 +65,7 @@ export default {
       nodeWidth: 100,
       nodeMargin: 3,
       tableHeight: 550,
+      isExecuting: false
     }
   },
   mounted() {
@@ -75,11 +96,14 @@ export default {
       const totalMarginSpace = (this.nodeMargin) * this.numNodes
       this.nodeWidth = Math.floor((tableWidth - totalMarginSpace) / this.numNodes)
     },
-    sort (type) {
+    async sort (type) {
+      this.isExecuting = true
       this.colorAll('primary')
       if (type.toLowerCase().includes('quick')) {
-        quickSort.sort(this.nodes)
+        await quickSort.sort(this.nodes)
       }
+      this.colorAll('primary')
+      this.isExecuting = false
     },
     updateView () {
       this.$forceUpdate()
@@ -88,6 +112,19 @@ export default {
       for (const node of this.nodes) {
         node.color = color
       }
+    },
+    stop () {
+      const nodesCpy = JSON.parse(JSON.stringify(this.nodes))
+      this.nodes = []
+      for (const node of nodesCpy) {
+        this.nodes.push(new SortNode(
+          node.value,
+          node.width,
+          node.height,
+          node.color
+        ))
+      }
+      this.isExecuting = false
     }
   }
 }

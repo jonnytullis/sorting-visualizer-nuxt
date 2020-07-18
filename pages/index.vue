@@ -1,16 +1,16 @@
 <template>
   <v-container fluid class="pa-0">
-    <v-row class="my-6 mx-12" justify="space-between" align="center">
-      <v-col cols="6">
+    <v-row class="my-6 mx-6" justify="space-between" align="center">
+      <v-col cols="12" lg="6" md="6">
         <v-slider
           v-model="speed"
           color="secondary"
           min="0"
           :max="maxStepTime"
-          class="mb-4 mr-3"
+          class="mb-4"
         >
           <template #prepend>
-            <v-layout align-center class="mr-3">
+            <v-layout align-center class="mr-4">
               Speed
             </v-layout>
             <v-icon>
@@ -45,27 +45,29 @@
           </template>
         </v-slider>
       </v-col>
-      <v-col cols="2">
-        <v-btn color="secondary" @click="generateNewArray">
-          <v-icon class="mr-2">
-            mdi-restore
-          </v-icon>
-          Regenerate
-        </v-btn>
-      </v-col>
-      <v-col cols="2">
+      <v-col cols="12" lg="2" md="2">
         <v-select
           v-model="selectedSortType"
           :items="sortTypes"
           item-color="secondary"
+          background-color="accent"
+          label="Type"
           filled
           outlined
           dense
           hide-details
         />
       </v-col>
-      <v-col cols="1">
-        <v-btn color="secondary" @click="sort">
+      <v-col cols="12" lg="2" md="2">
+        <v-btn color="accent" width="100%" @click="generateNewArray">
+          <v-icon class="mr-2">
+            mdi-restore
+          </v-icon>
+          Regenerate
+        </v-btn>
+      </v-col>
+      <v-col cols="12" lg="1" md="1">
+        <v-btn color="secondary" width="100%" @click="sort">
           Sort!
         </v-btn>
       </v-col>

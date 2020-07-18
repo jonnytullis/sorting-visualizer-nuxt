@@ -1,11 +1,10 @@
 
 export default class QuickSort {
 
-
   async sort (arr) {
     await this.quickSort(arr, 0, arr.length - 1)
-    await sleep()
-    return arr
+    await sleep(1000)
+    return new Promise(resolve => resolve())
   }
 
   async quickSort (arr, low, high) {
@@ -63,8 +62,8 @@ Array.prototype.swap = function (x, y) {
 }
 
 let stepTime = 0
-function sleep () {
-  return new Promise(resolve => setTimeout(resolve, stepTime));
+function sleep (ms = stepTime) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
