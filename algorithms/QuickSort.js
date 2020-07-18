@@ -62,7 +62,7 @@ Array.prototype.swap = function (x, y) {
   this[y] = temp
 }
 
-let stepTime = 0
+let stepTime = 100
 function sleep () {
   return new Promise(resolve => setTimeout(resolve, stepTime));
 }

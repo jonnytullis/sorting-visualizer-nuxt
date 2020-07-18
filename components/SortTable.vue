@@ -1,5 +1,5 @@
 <template>
-  <v-card :height="tableHeight" min-width="90%" class="pa-8" v-bind="$attrs">
+  <div :style="`height:${tableHeight}px; min-width:90%;border-radius:10px;box-shadow:2px 2px 3px #191919`" class="pa-8 accent">
     <v-layout fill-height justify-center align-end>
       <node
         v-for="node of nodes"
@@ -10,7 +10,7 @@
         @change="updateView"
       />
     </v-layout>
-  </v-card>
+  </div>
 </template>
 
 <script>
@@ -53,21 +53,16 @@ export default {
   methods: {
     init () {
       this.setNodeWidth()
-      while (this.nodes.length !== this.numNodes) {
-        if (this.nodes.length < this.numNodes) {
-          const num = Math.floor(Math.random() * (this.maxNum - this.minNum) + this.minNum)
-          this.nodes.push(new SortNode(
-            num,
-            this.nodeWidth,
-            `${Math.floor((num / this.maxNum) * 100)}%`,
-            'primary'
-          ))
-        } else {
-          this.nodes.pop()
-        }
-        for (const node of this.nodes) {
-          node.width = this.nodeWidth
-        }
+      this.colorAll('primary')
+      this.nodes = []
+      for (let i = 0; i < this.numNodes; i++) {
+        const num = Math.floor(Math.random() * (this.maxNum - this.minNum) + this.minNum)
+        this.nodes.push(new SortNode(
+          num,
+          this.nodeWidth,
+          `${Math.floor((num / this.maxNum) * 100)}%`,
+          'primary'
+        ))
       }
     },
     generateNewArray () {

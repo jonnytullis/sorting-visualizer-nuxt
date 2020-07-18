@@ -2,7 +2,13 @@
   <div
     :style="`height:${value.height}; width:${value.width}px;`"
     :class="value.color"
-  />
+  >
+    <div class="font-weight-bold label">
+      <span :style="`font-size: ${fontSize}px`">
+        {{ value.value }}
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -14,20 +20,44 @@ export default {
       type: SortNode
     }
   },
-  data () {
-    return {
-      showLabels: false
-    }
-  },
   watch: {
-    'value': {
+    'value.color': {
       immediate: true,
       deep: true,
       handler: function () {
-        this.showLabels = this.value.width > 30
         this.$emit('change')
       }
+    }
+  },
+  computed: {
+    fontSize () {
+      switch (true) {
+        case (this.value.width > 100):
+          return 30
+        case (this.value.width > 60):
+          return 20
+        case (this.value.width > 45):
+          return 16
+        case (this.value.width > 35):
+          return 12
+      }
+      return 0
     }
   }
 }
 </script>
+
+<style scoped>
+  .label {
+    margin: auto;
+    height: 100%;
+    width: 40px;
+    display: flex;
+  }
+
+  .label span {
+    align-self: flex-end;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>

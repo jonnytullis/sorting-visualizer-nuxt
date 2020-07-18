@@ -70,7 +70,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <sort-table ref="sortTable" :num-nodes="numNodes" :max-num="200" :min-num="10" :step-time="stepTime" v-bind="$attrs" />
+    <sort-table ref="sortTable" :num-nodes="numNodes" :max-num="200" :min-num="20" :step-time="stepTime" v-bind="$attrs" />
   </v-container>
 </template>
 
