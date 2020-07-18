@@ -1,27 +1,7 @@
 <template>
   <div :style="`height:${tableHeight}px; min-width:90%;border-radius:10px;box-shadow:2px 2px 3px #191919`" class="pa-8 accent">
-    <div>
-      <v-fade-transition>
-        <v-btn
-          v-if="isExecuting"
-          min-height="50"
-          min-width="50"
-          max-width="50"
-          max-height="50"
-          rounded
-          absolute
-          color="red"
-          class="ma-n4"
-          @click="stop"
-        >
-          <v-icon>
-            mdi-stop
-          </v-icon>
-        </v-btn>
-      </v-fade-transition>
-    </div>
     <v-layout fill-height justify-center align-end>
-      <node
+      <node-view
         v-for="node of nodes"
         :value="node"
         tile
@@ -34,16 +14,16 @@
 </template>
 
 <script>
-import Node from './Node'
-import SortNode from './SortNode'
-import QuickSort from '../algorithms/QuickSort'
+import NodeView from './NodeView'
+import NodeClass from '../assets/NodeClass'
+import QuickSort from '../assets/algorithms/QuickSort'
 
 const quickSort = new QuickSort()
 
 export default {
-  name: "SortTable",
+  name: "ArrayView",
   components: {
-    Node
+    NodeView
   },
   props: {
     numNodes: {
@@ -73,22 +53,19 @@ export default {
   },
   methods: {
     init () {
+      this.isExecuting = false
       this.setNodeWidth()
       this.colorAll('primary')
       this.nodes = []
       for (let i = 0; i < this.numNodes; i++) {
         const num = Math.floor(Math.random() * (this.maxNum - this.minNum) + this.minNum)
-        this.nodes.push(new SortNode(
+        this.nodes.push(new NodeClass(
           num,
           this.nodeWidth,
           `${Math.floor((num / this.maxNum) * 100)}%`,
           'primary'
         ))
       }
-    },
-    generateNewArray () {
-      this.nodes = []
-      this.init()
     },
     setNodeWidth () {
       const tableMargin = 50
@@ -117,17 +94,22 @@ export default {
       const nodesCpy = JSON.parse(JSON.stringify(this.nodes))
       this.nodes = []
       for (const node of nodesCpy) {
-        this.nodes.push(new SortNode(
+        this.nodes.push(new NodeClass(
           node.value,
           node.width,
           node.height,
-          node.color
+          'primary'
         ))
       }
       this.isExecuting = false
     },
     setStepTime (ms) {
       quickSort.stepTime = ms
+    }
+  },
+  watch: {
+    isExecuting: function () {
+      this.$emit('executing', this.isExecuting)
     }
   }
 }

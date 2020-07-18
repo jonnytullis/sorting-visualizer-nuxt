@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import SortNode from './SortNode'
+import NodeClass from '../assets/NodeClass'
 export default {
-  name: "Node",
+  name: "NodeView",
   props: {
     value: {
-      type: SortNode
+      type: NodeClass
     }
   },
   watch: {

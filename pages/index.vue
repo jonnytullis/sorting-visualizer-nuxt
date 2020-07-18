@@ -1,26 +1,25 @@
 <template>
   <v-container fluid class="pa-0">
     <v-row class="my-6 mx-6" justify="space-between" align="center">
-      <v-col cols="12" lg="6" md="6">
+      <v-col cols="12" lg="5" md="5">
         <v-slider
           v-model="speed"
           color="secondary"
           min="0"
-          :max="maxStepTime"
-          class="mb-4"
-          @input="setSpeed"
+          :max="5"
+          class="mb-4 mr-2"
         >
           <template #prepend>
-            <v-layout align-center class="mr-4">
+            <v-layout align-center class="mr-2">
               Speed
             </v-layout>
-            <v-icon>
-              mdi-speedometer-slow
+            <v-icon @click="speed--">
+              mdi-minus
             </v-icon>
           </template>
           <template #append>
-            <v-icon>
-              mdi-speedometer
+            <v-icon @click="speed++">
+              mdi-plus
             </v-icon>
           </template>
         </v-slider>
@@ -32,6 +31,7 @@
           hide-detail
           hide-details
           class="mr-4"
+          :disabled="isExecuting"
           @input="updateTableView"
         >
           <template #prepend>
@@ -67,53 +67,87 @@
           Regenerate
         </v-btn>
       </v-col>
-      <v-col cols="12" lg="1" md="1">
-        <v-btn color="secondary" width="100%" @click="sort">
-          Sort!
+      <v-col cols="12" lg="2" md="2">
+        <v-btn v-if="!isExecuting" color="secondary" width="100%" @click="sort">
+          <v-icon class="mr-2">mdi-play</v-icon>
+          Sort
+        </v-btn>
+        <v-btn v-else color="red" width="100%" @click="stopSort">
+          <v-icon class="mr-2">mdi-stop</v-icon>
+          Stop
         </v-btn>
       </v-col>
     </v-row>
-    <sort-table ref="sortTable" :num-nodes="numNodes" :max-num="200" :min-num="20" :step-time="stepTime" v-bind="$attrs" />
+    <array-view
+      ref="arrayView"
+      :num-nodes="numNodes"
+      :max-num="200"
+      :min-num="20"
+      :step-time="stepTime"
+      @executing="(val) => { this.isExecuting = val }"
+    />
   </v-container>
 </template>
 
 <script>
-import SortTable from '../components/SortTable'
+
+import ArrayView from "../components/ArrayView";
 
 export default {
   name: "SortingVisualizer",
   components: {
-    SortTable
+    ArrayView
   },
-  data () {
+  data() {
     return {
       numNodes: 20,
       sortTypes: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
       selectedSortType: 'Quick Sort',
-      speed: 1000,
-      maxStepTime: 2000
+      speed: 0,
+      maxStepTime: 2000,
+      isExecuting: false
     }
   },
   mounted() {
-    this.setSpeed()
+    this.speed = 2
   },
   methods: {
-    generateNewArray () {
-      this.$refs.sortTable.generateNewArray()
+    generateNewArray() {
+      this.$refs.arrayView.init()
     },
-    sort () {
-      this.$refs.sortTable.sort(this.selectedSortType)
+    sort() {
+      this.$refs.arrayView.sort(this.selectedSortType)
     },
-    updateTableView () {
-      this.$refs.sortTable.init()
+    stopSort() {
+      this.$refs.arrayView.stop()
     },
-    setSpeed () {
-      this.$refs.sortTable.setStepTime(this.stepTime)
+    updateTableView() {
+      this.$refs.arrayView.init()
     }
   },
   computed: {
-    stepTime () {
-      return this.maxStepTime - this.speed
+    stepTime() {
+      switch (this.speed) {
+        case 0:
+          return 2000
+        case 1:
+          return 1000
+        case 2:
+          return 500
+        case 3:
+          return 100
+        case 4:
+          return 30
+        case 5:
+          return 0
+        default:
+          return 2
+      }
+    }
+  },
+  watch: {
+    speed: function () {
+      this.$refs.arrayView.setStepTime(this.stepTime)
     }
   }
 }
