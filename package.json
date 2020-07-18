@@ -17,6 +17,7 @@
     "deploy:gh-pages": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
+    "lodash.startcase": "^4.4.0",
     "nuxt": "^2.13.0",
     "push-dir": "^0.4.1"
   },

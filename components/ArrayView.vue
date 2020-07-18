@@ -1,12 +1,12 @@
 <template>
-  <div :style="`height:${tableHeight}px; min-width:90%;border-radius:10px;box-shadow:2px 2px 3px #191919`" class="pa-8 accent">
+  <div :style="`height:${tableHeight}px; min-width:90%;border-radius:10px;box-shadow:2px 2px 3px #191919`" class="pa-6 accent">
     <v-layout fill-height justify-center align-end>
       <node-view
         v-for="node of nodes"
         :value="node"
         tile
         flat
-        :style="`margin-right: ${nodeMargin}px`"
+        :style="`margin-right: ${nodeMargin}px;`"
         @change="updateView"
       />
     </v-layout>
@@ -37,6 +37,9 @@ export default {
     },
     stepTime: {
       type: Number
+    },
+    sortType: {
+      type: String
     }
   },
   data () {
@@ -53,19 +56,21 @@ export default {
   },
   methods: {
     init () {
-      this.isExecuting = false
-      this.setNodeWidth()
-      this.colorAll('primary')
       this.nodes = []
-      for (let i = 0; i < this.numNodes; i++) {
-        const num = Math.floor(Math.random() * (this.maxNum - this.minNum) + this.minNum)
-        this.nodes.push(new NodeClass(
-          num,
-          this.nodeWidth,
-          `${Math.floor((num / this.maxNum) * 100)}%`,
-          'primary'
-        ))
-      }
+      this.$nextTick(() => {
+        this.isExecuting = false
+        this.setNodeWidth()
+        this.colorAll('primary')
+        for (let i = 0; i < this.numNodes; i++) {
+          const num = Math.floor(Math.random() * (this.maxNum - this.minNum) + this.minNum)
+          this.nodes.push(new NodeClass(
+            num,
+            this.nodeWidth,
+            `${Math.floor((num / this.maxNum) * 100)}%`,
+            'primary'
+          ))
+        }
+      })
     },
     setNodeWidth () {
       const tableMargin = 50
@@ -73,10 +78,10 @@ export default {
       const totalMarginSpace = (this.nodeMargin) * this.numNodes
       this.nodeWidth = Math.floor((tableWidth - totalMarginSpace) / this.numNodes)
     },
-    async sort (type) {
+    async sort () {
       this.isExecuting = true
       this.colorAll('primary')
-      if (type.toLowerCase().includes('quick')) {
+      if (this.sortType.toLowerCase().includes('quick')) {
         await quickSort.sort(this.nodes)
       }
       this.colorAll('primary')
