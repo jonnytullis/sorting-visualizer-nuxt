@@ -27,7 +27,7 @@
           v-model="numNodes"
           color="secondary"
           min="5"
-          :max="$vuetify.breakpoint.xsOnly ? 75 : 100"
+          :max="$vuetify.breakpoint.xsOnly ? 75 : 150"
           hide-detail
           hide-details
           class="mr-4"

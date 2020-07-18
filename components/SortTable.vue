@@ -72,7 +72,7 @@ export default {
     setNodeWidth () {
       const tableMargin = 50
       const tableWidth = window.innerWidth - tableMargin
-      const totalMarginSpace = (this.nodeMargin - 1) * this.numNodes
+      const totalMarginSpace = (this.nodeMargin) * this.numNodes
       this.nodeWidth = Math.floor((tableWidth - totalMarginSpace) / this.numNodes)
     },
     sort (type) {
