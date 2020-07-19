@@ -88,7 +88,7 @@
         </v-toolbar-title>
         <color-key :colors="sortColors" />
       </v-toolbar>
-      <div style="height: 550px; padding: 20px;">
+      <div style="height: 450px; padding: 20px;">
         <array-view
           ref="arrayView"
           :num-nodes="numNodes"
