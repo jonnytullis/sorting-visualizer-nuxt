@@ -1,15 +1,12 @@
 <template>
-  <div :style="`height:${tableHeight}px; min-width:90%;border-radius:10px;box-shadow:2px 2px 3px #191919`" class="pa-6 accent">
-    <v-layout fill-height justify-center align-end>
-      <node-view
-        v-for="node of nodes"
-        :value="node"
-        tile
-        flat
-        :style="`margin-right: ${nodeMargin}px;`"
-        @change="updateView"
-      />
-    </v-layout>
+  <div style="height: 100%; display: flex; justify-content: center;">
+    <node-view
+      v-for="node of nodes"
+      :value="node"
+      tile
+      flat
+      :style="`margin-right: ${nodeMargin}px; align-self: flex-end;`"
+    />
   </div>
 </template>
 
@@ -47,7 +44,6 @@ export default {
       nodes: [],
       nodeWidth: 100,
       nodeMargin: 3,
-      tableHeight: 550,
       isExecuting: false
     }
   },
@@ -75,7 +71,7 @@ export default {
     setNodeWidth () {
       const tableMargin = 50
       const tableWidth = window.innerWidth - tableMargin
-      const totalMarginSpace = (this.nodeMargin) * this.numNodes
+      const totalMarginSpace = (this.nodeMargin + 1) * this.numNodes
       this.nodeWidth = Math.floor((tableWidth - totalMarginSpace) / this.numNodes)
     },
     async sort () {
@@ -115,6 +111,9 @@ export default {
   watch: {
     isExecuting: function () {
       this.$emit('executing', this.isExecuting)
+    },
+    'nodes.length': function () {
+      this.updateView()
     }
   }
 }

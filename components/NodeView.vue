@@ -20,15 +20,6 @@ export default {
       type: NodeClass
     }
   },
-  watch: {
-    'value.color': {
-      immediate: true,
-      deep: true,
-      handler: function () {
-        this.$emit('change')
-      }
-    }
-  },
   computed: {
     fontSize () {
       switch (true) {

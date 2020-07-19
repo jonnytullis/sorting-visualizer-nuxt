@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="pa-0">
-    <v-row class="my-6 mx-6" justify="space-between" align="center">
+  <v-container fluid>
+    <v-row class="my-6" justify="space-between" align="center">
       <v-col cols="12" lg="5" md="5">
         <v-slider
           v-model="numNodes"
@@ -29,7 +29,7 @@
           color="secondary"
           hide-details
           min="0"
-          max="3"
+          max="4"
           class="mt-2"
           thumb-label="always"
         >
@@ -81,18 +81,25 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row>
-      <color-key :colors="sortColors" />
-    </v-row>
-    <array-view
-      ref="arrayView"
-      :num-nodes="numNodes"
-      :max-num="200"
-      :min-num="20"
-      :step-time="stepTime"
-      :sort-type="selectedSortType"
-      @executing="(val) => { this.isExecuting = val }"
-    />
+    <v-card elevation="6">
+      <v-toolbar rounded>
+        <v-toolbar-title>
+          Color Key
+        </v-toolbar-title>
+        <color-key :colors="sortColors" />
+      </v-toolbar>
+      <div style="height: 550px; padding: 20px;">
+        <array-view
+          ref="arrayView"
+          :num-nodes="numNodes"
+          :max-num="200"
+          :min-num="20"
+          :step-time="stepTime"
+          :sort-type="selectedSortType"
+          @executing="(val) => { this.isExecuting = val }"
+        />
+      </div>
+    </v-card>
   </v-container>
 </template>
 
@@ -165,8 +172,10 @@ export default {
         case 1:
           return 500
         case 2:
-          return 50
+          return 200
         case 3:
+          return 50
+        case 4:
           return 0
       }
     },
@@ -186,6 +195,8 @@ export default {
           return 'mdi-run'
         case 3:
           return 'mdi-run-fast'
+        case 4:
+          return 'mdi-exclamation-thick'
       }
     }
   },
