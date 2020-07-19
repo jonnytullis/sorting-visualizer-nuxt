@@ -124,7 +124,7 @@ export default {
       maxStepTime: 2000,
       isExecuting: false,
       minNumNodes: 5,
-      maxNumNodes: 100
+      maxNumNodes: this.$vuetify.breakpoint.xsOnly ? 75 : 300
     }
   },
   mounted() {
