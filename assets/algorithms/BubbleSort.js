@@ -1,6 +1,6 @@
 import Sort from "./Sort";
 
-export default class MergeSort extends Sort {
+export default class BubbleSort extends Sort {
   static colors = {
     primary: 'primary',
     pivot: 'red',
@@ -12,12 +12,12 @@ export default class MergeSort extends Sort {
 
   async sort (arr) {
     this.arr = arr
-    await this.mergeSort(0, arr.length - 1)
+    await this.bubbleSort(0, arr.length - 1)
     await this.sleep(this.stepTime < 500 ? 500 : this.stepTime)
     return new Promise(resolve => resolve())
   }
 
-  async mergeSort (low, high) {
+  async bubbleSort (low, high) {
   }
 }
 
