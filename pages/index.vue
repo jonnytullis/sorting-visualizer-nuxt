@@ -82,7 +82,7 @@
       </v-col>
     </v-row>
     <v-card elevation="6">
-      <v-toolbar rounded>
+      <v-toolbar v-show="$vuetify.breakpoint.mdAndUp" rounded>
         <v-toolbar-title>
           Color Key
         </v-toolbar-title>

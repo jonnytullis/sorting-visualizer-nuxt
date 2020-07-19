@@ -1,6 +1,10 @@
 <template>
   <v-row>
-    <v-col v-if="!prop.toLowerCase().includes('primary')" v-for="prop in Object.keys(colors)" :key="prop" style="text-align: center">
+    <v-col
+      v-if="!prop.toLowerCase().includes('primary')"
+      v-for="prop in Object.keys(colors)"
+      :key="prop"
+    >
       <v-layout justify-center align-center>
         <div style="width: 25px; height: 25px; border-radius: 5px;" :class="`${colors[prop]} mr-4`" />
         {{ formatText(prop) }}
