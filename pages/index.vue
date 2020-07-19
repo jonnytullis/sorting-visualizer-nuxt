@@ -108,6 +108,9 @@
 import ArrayView from "../components/ArrayView";
 import ColorKey from "../components/ColorKey";
 import QuickSort from "../assets/algorithms/QuickSort";
+import MergeSort from "../assets/algorithms/MergeSort";
+import HeapSort from "../assets/algorithms/HeapSort";
+import BubbleSort from "../assets/algorithms/BubbleSort";
 
 export default {
   name: "SortingVisualizer",
@@ -119,7 +122,7 @@ export default {
     return {
       numNodes: 20,
       sortTypes: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
-      selectedSortType: 'Quick Sort',
+      selectedSortType: 'Merge Sort',
       speed: 0,
       maxStepTime: 2000,
       isExecuting: false,
@@ -182,6 +185,12 @@ export default {
     sortColors () {
       if (this.selectedSortType.toLowerCase().includes('quick')) {
         return QuickSort.colors
+      } else if (this.selectedSortType.toLowerCase().includes('merge')) {
+        return MergeSort.colors
+      } else if (this.selectedSortType.toLowerCase().includes('heap')) {
+        return HeapSort.colors
+      } else if (this.selectedSortType.toLowerCase().includes('bubble')) {
+        return BubbleSort.colors
       }
       return {}
     },

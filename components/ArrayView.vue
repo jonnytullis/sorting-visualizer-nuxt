@@ -11,11 +11,17 @@
 </template>
 
 <script>
-import NodeView from './NodeView'
-import NodeClass from '../assets/NodeClass'
-import QuickSort from '../assets/algorithms/QuickSort'
+import NodeView from "./NodeView";
+import NodeClass from "../assets/NodeClass";
+import QuickSort from "../assets/algorithms/QuickSort";
+import MergeSort from "../assets/algorithms/MergeSort";
+import HeapSort from "../assets/algorithms/HeapSort";
+import BubbleSort from "../assets/algorithms/BubbleSort";
 
 const quickSort = new QuickSort()
+const mergeSort = new MergeSort()
+const heapSort = new HeapSort()
+const bubbleSort = new BubbleSort()
 
 export default {
   name: "ArrayView",
@@ -79,6 +85,12 @@ export default {
       this.colorAll('primary')
       if (this.sortType.toLowerCase().includes('quick')) {
         await quickSort.sort(this.nodes)
+      } else if (this.sortType.toLowerCase().includes('merge')) {
+        await mergeSort.sort(this.nodes)
+      } else if (this.sortType.toLowerCase().includes('heap')) {
+        await heapSort.sort(this.nodes)
+      } else if (this.sortType.toLowerCase().includes('bubble')) {
+        await bubbleSort.sort(this.nodes)
       }
       this.colorAll('primary')
       this.isExecuting = false
