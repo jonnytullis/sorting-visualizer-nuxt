@@ -18,10 +18,10 @@ import MergeSort from "../assets/algorithms/MergeSort";
 import HeapSort from "../assets/algorithms/HeapSort";
 import BubbleSort from "../assets/algorithms/BubbleSort";
 
-const quickSort = new QuickSort()
-const mergeSort = new MergeSort()
-const heapSort = new HeapSort()
-const bubbleSort = new BubbleSort()
+let quickSort = new QuickSort()
+let mergeSort = new MergeSort()
+let heapSort = new HeapSort()
+let bubbleSort = new BubbleSort()
 
 export default {
   name: "ArrayView",
@@ -118,6 +118,9 @@ export default {
     },
     setStepTime (ms) {
       quickSort.stepTime = ms
+      mergeSort.stepTime = ms
+      heapSort.stepTime = ms
+      bubbleSort.stepTime = ms
     }
   },
   watch: {
