@@ -21,3 +21,18 @@ Array.prototype.swap = function (x, y) {
   this[x] = this[y]
   this[y] = temp
 }
+
+Array.prototype.moveIndex = function(target, destination) {
+  console.log('Reached')
+  const temp = this[target]
+  if (target > destination) {
+    for (let i = target; i > destination; i--) {
+      this[i] = this[i - 1]
+    }
+  } else if (target < destination) {
+    for (let i = target; i < destination; i++) {
+      this[i] = this[i + 1]
+    }
+  }
+  this[destination] = temp
+}
