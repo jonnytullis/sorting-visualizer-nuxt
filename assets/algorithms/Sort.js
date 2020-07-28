@@ -5,14 +5,14 @@ export default class Sort {
   arr = []
 
   sleep (ms = this.stepTime) {
-    this.forceUpdate(this.arr)
+    this.forceUpdate()
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   /** The view updates when array length changes (see WATCHER in 'components/ArrayView.vue') **/
-  forceUpdate (arr) {
-    arr.push(new NodeClass(0, 0, 0, ''))
-    arr.pop()
+  forceUpdate () {
+    this.arr.length++
+    this.arr.length--
   }
 }
 
