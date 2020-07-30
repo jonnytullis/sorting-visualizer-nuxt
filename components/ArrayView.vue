@@ -95,9 +95,6 @@ export default {
       this.colorAll('primary')
       this.isExecuting = false
     },
-    updateView () {
-      this.$forceUpdate()
-    },
     colorAll (color) {
       for (const node of this.nodes) {
         node.color = color
@@ -128,7 +125,8 @@ export default {
       this.$emit('executing', this.isExecuting)
     },
     'nodes.length': function () {
-      this.updateView()
+      console.log('Reached')
+      this.$forceUpdate()
     }
   }
 }

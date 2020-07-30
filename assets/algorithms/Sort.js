@@ -11,8 +11,8 @@ export default class Sort {
 
   /** The view updates when array length changes (see WATCHER in 'components/ArrayView.vue') **/
   forceUpdate () {
-    this.arr.length++
-    this.arr.length--
+    this.arr.push(new NodeClass(0, 0, 0, 'transparent'))
+    this.arr.pop()
   }
 }
 
@@ -23,7 +23,6 @@ Array.prototype.swap = function (x, y) {
 }
 
 Array.prototype.moveIndex = function(target, destination) {
-  console.log('Reached')
   const temp = this[target]
   if (target > destination) {
     for (let i = target; i > destination; i--) {
@@ -35,4 +34,25 @@ Array.prototype.moveIndex = function(target, destination) {
     }
   }
   this[destination] = temp
+}
+
+Array.prototype.isSorted = function () {
+  for (let i = 0; i < this.length - 1; i++) {
+    if (this[i].value > this[i + 1].value) {
+      return false
+    }
+  }
+  return true
+}
+
+Array.prototype.toString = function (lowIndex = 0, highIndex = this.length - 1) {
+  let str = '[ '
+  for (let i = lowIndex; i <= highIndex; i++) {
+    str += this[i].value
+    if (i < highIndex - 1) {
+      str += ', '
+    }
+  }
+  str += ' ]'
+  return str
 }

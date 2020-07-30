@@ -27,47 +27,32 @@ export default class MergeSort extends Sort {
     return new Promise(resolve => resolve())
   }
 
-  // Merges two sub-arrays of this.arr[].
+  // Merges two sub-arrays of this.arr[]
   // First subarray is arr[left..middle]
   // Second subarray is arr[middle + 1..right]
   async merge (left, middle, right) {
-    const leftArr = []
-    const rightArr = []
+    let currentLeft = left
+    let currentRight = middle + 1
     for (let i = left; i <= right; i++) {
-      if (i <= middle) {
-        leftArr.push(this.arr[i])
-      } else {
-        rightArr.push(this.arr[i])
+      if (currentLeft < right) {
+        if (this.arr[currentLeft].value > this.arr[currentRight].value) {
+          this.arr.moveIndex(currentRight, currentLeft)
+          if (currentLeft < currentRight) {
+            currentLeft++
+          }
+          if (currentRight < right) {
+            currentRight++
+          }
+        } else {
+          if (currentLeft < currentRight) {
+            currentLeft++
+          } else if (currentRight < right) {
+            currentRight++
+          }
+        }
       }
-    }
-
-    let i = 0 // Index of left array
-    let j = 0 // Index of right array
-    let k = left // First index of subarray within this.this.arr[]
-    while (i < leftArr.length && j < rightArr.length) {
-      if (leftArr[i].value < rightArr[j].value) {
-        this.arr[k] = leftArr[i]
-        i++
-      } else {
-        this.arr[k] = rightArr[j]
-        j++
-      }
-      k++
-    }
-
-    // Copy any remaining elements in leftArr and rightArr
-    while (i < leftArr.length) {
-      this.arr[k] = leftArr[i]
-      i++
-      k++
-    }
-    while (j < rightArr.length) {
-      this.arr[k] = rightArr[j]
-      j++
-      k++
     }
 
     return new Promise(resolve => resolve())
   }
 }
-
