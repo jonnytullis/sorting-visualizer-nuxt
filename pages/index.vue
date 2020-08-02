@@ -92,8 +92,8 @@
         <array-view
           ref="arrayView"
           :num-nodes="numNodes"
-          :max-num="200"
-          :min-num="20"
+          :max-num="maxNodeValue"
+          :min-num="minNodeValue"
           :step-time="stepTime"
           :sort-type="selectedSortType"
           @executing="(val) => { this.isExecuting = val }"
@@ -127,7 +127,9 @@ export default {
       maxStepTime: 2000,
       isExecuting: false,
       minNumNodes: 5,
-      maxNumNodes: this.$vuetify.breakpoint.xsOnly ? 75 : 300
+      maxNumNodes: this.$vuetify.breakpoint.xsOnly ? 75 : 200,
+      maxNodeValue: 200,
+      minNodeValue: 20
     }
   },
   mounted() {
