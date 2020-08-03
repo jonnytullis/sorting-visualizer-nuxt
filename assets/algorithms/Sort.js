@@ -56,3 +56,9 @@ Array.prototype.toString = function (lowIndex = 0, highIndex = this.length - 1) 
   str += ' ]'
   return str
 }
+
+Array.prototype.colorRange = function (lowIndex, highIndex, color) {
+  for (let i = lowIndex; i <= highIndex; i++) {
+    this[i].color = color
+  }
+}

@@ -3,17 +3,14 @@ import Sort from "./Sort";
 export default class MergeSort extends Sort {
   static colors = {
     primary: 'primary',
-    pivot: 'red',
-    currentIteration: 'grey',
-    swapping: 'yellow',
-    lessThanPivot: 'purple',
+    leftSubArray: 'purple',
+    rightSubArray: 'orange',
     sorted: 'success'
   }
 
   async sort (arr) {
     this.arr = arr
     await this.mergeSort(0, arr.length - 1)
-    await this.sleep(this.stepTime < 500 ? 500 : this.stepTime)
     return new Promise(resolve => resolve())
   }
 
@@ -23,6 +20,13 @@ export default class MergeSort extends Sort {
       await this.mergeSort(left, middle)
       await this.mergeSort(middle + 1, right)
       await this.merge(left, middle, right)
+
+      this.arr.colorRange(left, right, MergeSort.colors.sorted)
+      if (left !== 0 || right !== this.arr.length - 1) {
+        await this.sleep()
+        this.arr.colorRange(left, right, 'primary')
+        await this.sleep()
+      }
     }
     return new Promise(resolve => resolve())
   }
@@ -31,8 +35,13 @@ export default class MergeSort extends Sort {
   // First subarray is arr[left..middle]
   // Second subarray is arr[middle + 1..right]
   async merge (left, middle, right) {
+    this.arr.colorRange(left, middle, MergeSort.colors.leftSubArray) // Left Subarray
+    this.arr.colorRange(middle + 1, right, MergeSort.colors.rightSubArray) // Right Subarray
+    await this.sleep()
+
     let currentLeft = left
     let currentRight = middle + 1
+
     for (let i = left; i <= right; i++) {
       if (currentLeft < right) {
         if (this.arr[currentLeft].value > this.arr[currentRight].value) {
@@ -43,6 +52,7 @@ export default class MergeSort extends Sort {
           if (currentRight < right) {
             currentRight++
           }
+          await this.sleep()
         } else {
           if (currentLeft < currentRight) {
             currentLeft++

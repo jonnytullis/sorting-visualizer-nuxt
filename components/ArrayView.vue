@@ -92,8 +92,10 @@ export default {
       } else if (this.sortType.toLowerCase().includes('bubble')) {
         await bubbleSort.sort(this.nodes)
       }
-      this.colorAll('primary')
-      this.isExecuting = false
+      setTimeout(() => {
+        this.colorAll('primary')
+        this.isExecuting = false
+      }, this.stepTime < 1000 ? 1000 : this.stepTime)
     },
     colorAll (color) {
       for (const node of this.nodes) {
@@ -125,7 +127,6 @@ export default {
       this.$emit('executing', this.isExecuting)
     },
     'nodes.length': function () {
-      console.log('Reached')
       this.$forceUpdate()
     }
   }

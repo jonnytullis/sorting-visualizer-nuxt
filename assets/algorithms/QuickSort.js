@@ -14,7 +14,6 @@ export default class QuickSort extends Sort {
   async sort (arr) {
     this.arr = arr
     await this.quickSort(0, arr.length - 1)
-    await this.sleep(this.stepTime < 500 ? 500 : this.stepTime)
     return new Promise(resolve => resolve(this.arr))
   }
 
