@@ -51,10 +51,11 @@
       </v-col>
       <v-col cols="12" lg="2" md="2">
         <v-select
-          v-model="selectedSortType"
-          :items="sortTypes"
+          v-model="sortType"
+          :items="sortTypeOptions"
           item-color="secondary"
           background-color="accent"
+          :disabled="isExecuting"
           label="Type"
           filled
           outlined
@@ -63,7 +64,7 @@
         />
       </v-col>
       <v-col cols="12" lg="2" md="2">
-        <v-btn color="accent" width="100%" @click="generateNewArray">
+        <v-btn color="accent" width="100%" :disabled="isExecuting" @click="generateNewArray">
           <v-icon class="mr-2">
             mdi-restore
           </v-icon>
@@ -95,8 +96,8 @@
           :max-num="maxNodeValue"
           :min-num="minNodeValue"
           :step-time="stepTime"
-          :sort-type="selectedSortType"
-          @executing="(val) => { this.isExecuting = val }"
+          :sort-type="sortType"
+          :sort-object="sortObject"
         />
       </div>
     </v-card>
@@ -112,6 +113,11 @@ import MergeSort from "../assets/algorithms/MergeSort";
 import HeapSort from "../assets/algorithms/HeapSort";
 import BubbleSort from "../assets/algorithms/BubbleSort";
 
+let quickSort = new QuickSort()
+let mergeSort = new MergeSort()
+let heapSort = new HeapSort()
+let bubbleSort = new BubbleSort()
+
 export default {
   name: "SortingVisualizer",
   components: {
@@ -121,11 +127,11 @@ export default {
   data() {
     return {
       numNodes: 20,
-      sortTypes: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
-      selectedSortType: 'Merge Sort',
+      sortTypeOptions: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
+      sortType: 'Merge Sort',
       speed: 0,
-      maxStepTime: 2000,
       isExecuting: false,
+      maxStepTime: 2000,
       minNumNodes: 5,
       maxNumNodes: this.$vuetify.breakpoint.xsOnly ? 75 : 200,
       maxNodeValue: 200,
@@ -140,10 +146,10 @@ export default {
       this.$refs.arrayView.init()
     },
     sort() {
-      this.$refs.arrayView.sort()
+      this.sortObject.execute(this.$refs.arrayView.nodes)
     },
     stopSort() {
-      this.$refs.arrayView.stop()
+      this.sortObject.stop()
     },
     updateTableView() {
       this.$refs.arrayView.init()
@@ -170,6 +176,17 @@ export default {
     }
   },
   computed: {
+    sortObject() {
+      if (this.sortType.toLowerCase().includes('quick')) {
+        return quickSort
+      } else if (this.sortType.toLowerCase().includes('merge')) {
+        return mergeSort
+      } else if (this.sortType.toLowerCase().includes('heap')) {
+        return bubbleSort
+      } else if (this.sortType.toLowerCase().includes('bubble')) {
+        return heapSort
+      }
+    },
     stepTime() {
       switch (this.speed) {
         case 0:
@@ -185,13 +202,13 @@ export default {
       }
     },
     sortColors () {
-      if (this.selectedSortType.toLowerCase().includes('quick')) {
+      if (this.sortType.toLowerCase().includes('quick')) {
         return QuickSort.colors
-      } else if (this.selectedSortType.toLowerCase().includes('merge')) {
+      } else if (this.sortType.toLowerCase().includes('merge')) {
         return MergeSort.colors
-      } else if (this.selectedSortType.toLowerCase().includes('heap')) {
+      } else if (this.sortType.toLowerCase().includes('heap')) {
         return HeapSort.colors
-      } else if (this.selectedSortType.toLowerCase().includes('bubble')) {
+      } else if (this.sortType.toLowerCase().includes('bubble')) {
         return BubbleSort.colors
       }
       return {}

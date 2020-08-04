@@ -13,6 +13,7 @@ export default class QuickSort extends Sort {
 
   async sort (arr) {
     this.arr = arr
+    this.isExecuting = true
     await this.quickSort(0, arr.length - 1)
     return new Promise(resolve => resolve(this.arr))
   }

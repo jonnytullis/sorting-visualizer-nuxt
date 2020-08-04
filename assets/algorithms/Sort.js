@@ -2,17 +2,35 @@ import NodeClass from "../NodeClass";
 
 export default class Sort {
   stepTime = 0
+  isExecuting = false
   arr = []
 
   sleep (ms = this.stepTime) {
+    if (!this.isExecuting) {
+      throw new Error('Stopped Sorting')
+    }
+    this.arr.push(new NodeClass(0, 0, 0, 'transparent'))
+    this.arr.pop()
     this.forceUpdate()
     return new Promise(resolve => setTimeout(resolve, ms));
   }
+
+  execute() {
+    this.$emit('start')
+    this.sort()
+  }
+
+  sort() {}
 
   /** The view updates when array length changes (see WATCHER in 'components/ArrayView.vue') **/
   forceUpdate () {
     this.arr.push(new NodeClass(0, 0, 0, 'transparent'))
     this.arr.pop()
+  }
+
+  stop() {
+    this.$emit('stop')
+    this.isExecuting = false
   }
 }
 

@@ -13,15 +13,7 @@
 <script>
 import NodeView from "./NodeView";
 import NodeClass from "../assets/NodeClass";
-import QuickSort from "../assets/algorithms/QuickSort";
-import MergeSort from "../assets/algorithms/MergeSort";
-import HeapSort from "../assets/algorithms/HeapSort";
-import BubbleSort from "../assets/algorithms/BubbleSort";
-
-let quickSort = new QuickSort()
-let mergeSort = new MergeSort()
-let heapSort = new HeapSort()
-let bubbleSort = new BubbleSort()
+import Sort from "assets/algorithms/Sort";
 
 export default {
   name: "ArrayView",
@@ -31,6 +23,10 @@ export default {
   props: {
     numNodes: {
       type: Number
+    },
+    sortObject: {
+      type: Sort,
+      required: true
     },
     maxNum: {
       type: Number
@@ -49,8 +45,7 @@ export default {
     return {
       nodes: [],
       nodeWidth: 100,
-      nodeMargin: 3,
-      isExecuting: false
+      nodeMargin: 3
     }
   },
   mounted() {
@@ -60,7 +55,6 @@ export default {
     init () {
       this.nodes = []
       this.$nextTick(() => {
-        this.isExecuting = false
         this.setNodeWidth()
         this.colorAll('primary')
         for (let i = 0; i < this.numNodes; i++) {
@@ -81,51 +75,28 @@ export default {
       this.nodeWidth = Math.floor((tableWidth - totalMarginSpace) / this.numNodes)
     },
     async sort () {
-      this.isExecuting = true
+      this.$emit('start')
       this.colorAll('primary')
-      if (this.sortType.toLowerCase().includes('quick')) {
-        await quickSort.sort(this.nodes)
-      } else if (this.sortType.toLowerCase().includes('merge')) {
-        await mergeSort.sort(this.nodes)
-      } else if (this.sortType.toLowerCase().includes('heap')) {
-        await heapSort.sort(this.nodes)
-      } else if (this.sortType.toLowerCase().includes('bubble')) {
-        await bubbleSort.sort(this.nodes)
+      try {
+        await this.sortObject.execute(this.nodes)
+        setTimeout(() => {
+          this.colorAll('primary')
+          this.$emit('stop')
+        }, this.stepTime < 700 ? 700 : this.stepTime)
+      } catch(e) {
+        console.log(e.message)
       }
-      setTimeout(() => {
-        this.colorAll('primary')
-        this.isExecuting = false
-      }, this.stepTime < 1000 ? 1000 : this.stepTime)
     },
     colorAll (color) {
       for (const node of this.nodes) {
         node.color = color
       }
     },
-    stop () {
-      const nodesCpy = JSON.parse(JSON.stringify(this.nodes))
-      this.nodes = []
-      for (const node of nodesCpy) {
-        this.nodes.push(new NodeClass(
-          node.value,
-          node.width,
-          node.height,
-          'primary'
-        ))
-      }
-      this.isExecuting = false
-    },
     setStepTime (ms) {
-      quickSort.stepTime = ms
-      mergeSort.stepTime = ms
-      heapSort.stepTime = ms
-      bubbleSort.stepTime = ms
+      this.sortObject.stepTime = ms
     }
   },
   watch: {
-    isExecuting: function () {
-      this.$emit('executing', this.isExecuting)
-    },
     'nodes.length': function () {
       this.$forceUpdate()
     }
