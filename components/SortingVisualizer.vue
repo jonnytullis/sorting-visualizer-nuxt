@@ -238,7 +238,10 @@ export default {
   watch: {
     speed: {
       handler: function () {
-        this.sortObject.stepTime = this.stepTime
+        quickSort.stepTime = this.stepTime
+        mergeSort.stepTime = this.stepTime
+        heapSort.stepTime = this.stepTime
+        bubbleSort.stepTime = this.stepTime
       },
       immediate: true
     }
