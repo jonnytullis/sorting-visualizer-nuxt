@@ -5,21 +5,28 @@ export default class Sort {
   isExecuting = false
   arr = []
 
-  sleep (ms = this.stepTime) {
-    if (!this.isExecuting) {
-      throw new Error('Stopped Sorting')
-    }
+  async sleep (ms = this.stepTime) {
     this.arr.push(new NodeClass(0, 0, 0, 'transparent'))
     this.arr.pop()
     this.forceUpdate()
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return this.isExecuting ? resolve() : reject('Execution halted.')
+      }, ms)
+    })
   }
 
-  execute() {
-    this.$emit('start')
-    this.sort()
+  async execute(arr) {
+    this.isExecuting = true
+    this.arr = arr
+    this.arr.colorRange(0, this.arr.length - 1, 'primary')
+    dispatchEvent(new Event('start'))
+    await this.sort()
+    this.stop()
+    return new Promise(resolve => resolve())
   }
 
+  // Override this function in children
   sort() {}
 
   /** The view updates when array length changes (see WATCHER in 'components/ArrayView.vue') **/
@@ -29,7 +36,7 @@ export default class Sort {
   }
 
   stop() {
-    this.$emit('stop')
+    dispatchEvent(new Event('stop'))
     this.isExecuting = false
   }
 }

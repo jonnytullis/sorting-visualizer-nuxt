@@ -95,7 +95,6 @@
           :num-nodes="numNodes"
           :max-num="maxNodeValue"
           :min-num="minNodeValue"
-          :step-time="stepTime"
           :sort-type="sortType"
           :sort-object="sortObject"
         />
@@ -129,7 +128,7 @@ export default {
       numNodes: 20,
       sortTypeOptions: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
       sortType: 'Merge Sort',
-      speed: 0,
+      speed: 1,
       isExecuting: false,
       maxStepTime: 2000,
       minNumNodes: 5,
@@ -138,15 +137,23 @@ export default {
       minNodeValue: 20
     }
   },
-  mounted() {
-    this.speed = 1
+  created() {
+    window.addEventListener('start', () => {
+      this.isExecuting = true
+    })
+    window.addEventListener('stop', () => {
+      this.isExecuting = false
+    })
   },
   methods: {
     generateNewArray() {
       this.$refs.arrayView.init()
     },
     sort() {
-      this.sortObject.execute(this.$refs.arrayView.nodes)
+      try {
+        this.sortObject.execute(this.$refs.arrayView.nodes)
+      } catch(e) {
+      }
     },
     stopSort() {
       this.sortObject.stop()
@@ -229,8 +236,11 @@ export default {
     }
   },
   watch: {
-    speed: function () {
-      this.$refs.arrayView.setStepTime(this.stepTime)
+    speed: {
+      handler: function () {
+        this.sortObject.stepTime = this.stepTime
+      },
+      immediate: true
     }
   }
 }

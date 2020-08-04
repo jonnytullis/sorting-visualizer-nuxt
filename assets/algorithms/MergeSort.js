@@ -2,17 +2,17 @@ import Sort from "./Sort";
 
 export default class MergeSort extends Sort {
   static colors = {
-    primary: 'primary',
     leftSubArray: 'purple',
     rightSubArray: 'orange',
     sorted: 'success'
   }
 
-  async sort (arr) {
-    this.isExecuting = true
-    this.arr = arr
-    await this.mergeSort(0, arr.length - 1)
-    return new Promise(resolve => resolve())
+  async sort () {
+    const resolve = new Promise(resolve => resolve())
+    await this.mergeSort(0, this.arr.length - 1).catch((e) => {
+      return resolve
+    })
+    return resolve
   }
 
   async mergeSort (left, right) {

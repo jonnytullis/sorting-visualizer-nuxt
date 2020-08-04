@@ -84,16 +84,12 @@ export default {
           this.$emit('stop')
         }, this.stepTime < 700 ? 700 : this.stepTime)
       } catch(e) {
-        console.log(e.message)
       }
     },
     colorAll (color) {
       for (const node of this.nodes) {
         node.color = color
       }
-    },
-    setStepTime (ms) {
-      this.sortObject.stepTime = ms
     }
   },
   watch: {

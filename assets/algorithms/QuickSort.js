@@ -3,7 +3,6 @@ import Sort from "./Sort";
 export default class QuickSort extends Sort {
 
   static colors = {
-    primary: 'primary',
     pivot: 'red',
     currentIteration: 'grey',
     swapping: 'yellow',
@@ -11,10 +10,8 @@ export default class QuickSort extends Sort {
     sorted: 'success'
   }
 
-  async sort (arr) {
-    this.arr = arr
-    this.isExecuting = true
-    await this.quickSort(0, arr.length - 1)
+  async sort () {
+    await this.quickSort(0, this.arr.length - 1)
     return new Promise(resolve => resolve(this.arr))
   }
 
@@ -54,13 +51,13 @@ export default class QuickSort extends Sort {
 
           this.arr[i].color = QuickSort.colors.lessThanPivot
           if (i !== j) {
-            this.arr[j].color = QuickSort.colors.primary
+            this.arr[j].color = 'primary'
           }
           await this.sleep()
         }
       } else {
         // arr[j] is greater than pivot value
-        this.arr[j].color = QuickSort.colors.primary
+        this.arr[j].color = 'primary'
       }
     }
     // At this point 'i + 1' is the index where the pivot should be, and 'high' is the index where it currently is.
@@ -72,8 +69,8 @@ export default class QuickSort extends Sort {
       this.arr.swap(i + 1, high)
       await this.sleep()
 
-      this.arr[i + 1].color = QuickSort.colors.primary
-      this.arr[high].color = QuickSort.colors.primary
+      this.arr[i + 1].color = 'primary'
+      this.arr[high].color = 'primary'
     }
 
     return new Promise(resolve => resolve(i + 1))
