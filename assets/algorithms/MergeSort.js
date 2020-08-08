@@ -8,7 +8,7 @@ export default class MergeSort extends Sort {
   }
 
   async sort () {
-    const resolve = new Promise(resolve => resolve())
+    const resolve = new Promise(resolve => resolve(this.arr))
     await this.mergeSort(0, this.arr.length - 1).catch((e) => {
       return resolve
     })

@@ -127,7 +127,7 @@ export default {
     return {
       numNodes: 20,
       sortTypeOptions: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
-      sortType: 'Merge Sort',
+      sortType: 'Heap Sort',
       speed: 1,
       isExecuting: false,
       maxStepTime: 2000,
@@ -189,9 +189,9 @@ export default {
       } else if (this.sortType.toLowerCase().includes('merge')) {
         return mergeSort
       } else if (this.sortType.toLowerCase().includes('heap')) {
-        return bubbleSort
-      } else if (this.sortType.toLowerCase().includes('bubble')) {
         return heapSort
+      } else if (this.sortType.toLowerCase().includes('bubble')) {
+        return bubbleSort
       }
     },
     stepTime() {
