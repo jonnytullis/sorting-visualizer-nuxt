@@ -89,6 +89,9 @@
         </v-toolbar-title>
         <color-key :colors="sortColors" />
       </v-toolbar>
+      <v-row justify="center" style="font-size: 24px; height: 30px;">
+        {{ sortObject.status }}
+      </v-row>
       <div style="height: 450px; padding: 20px;">
         <array-view
           ref="arrayView"

@@ -12,7 +12,6 @@ export default class HeapSort extends Sort {
 
   async sort () {
     await this.heapSort(this.arr.length)
-    await this.sleep(this.stepTime < 500 ? 500 : this.stepTime)
     return new Promise(resolve => resolve())
   }
 
@@ -27,6 +26,7 @@ export default class HeapSort extends Sort {
       // Move current root to end
       this.arr[0].color = HeapSort.colors.swapping
       this.arr[i].color = HeapSort.colors.swapping
+      this.status = 'Sorting Root Node...'
       await this.sleep()
 
       this.arr.swap(0, i)
@@ -43,6 +43,7 @@ export default class HeapSort extends Sort {
   }
 
   async heapify (end, i) {
+    this.status = 'Building Heap...'
     this.arr[0].color = HeapSort.colors.rootNode
 
     let largest = i // Initialize largest as root

@@ -11,7 +11,6 @@ export default class BubbleSort extends Sort {
 
   async sort () {
     await this.bubbleSort(0, this.arr.length - 1)
-    await this.sleep(this.stepTime < 500 ? 500 : this.stepTime)
     return new Promise(resolve => resolve())
   }
 

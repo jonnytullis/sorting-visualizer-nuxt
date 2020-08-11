@@ -4,6 +4,7 @@ export default class Sort {
   stepTime = 0
   isExecuting = false
   arr = []
+  status = ''
   haltedMessage = 'Execution Halted'
 
   async sleep (ms = this.stepTime) {
@@ -24,13 +25,16 @@ export default class Sort {
     dispatchEvent(new Event('start'))
     try {
       await this.sort()
+      this.status = 'Array Sorted!'
+      await this.sleep(this.stepTime < 500 ? 500 : this.stepTime)
+      this.arr.colorRange(0, this.arr.length - 1, 'primary')
     } catch(e) {
       if (e.toString() !== this.haltedMessage) {
         throw e
       }
     }
     this.stop()
-    return new Promise(resolve => resolve())
+    return new Promise(resolve => resolve(this.arr))
   }
 
   // Override this function in children
@@ -45,6 +49,7 @@ export default class Sort {
   stop() {
     dispatchEvent(new Event('stop'))
     this.isExecuting = false
+    this.status = ''
   }
 }
 
