@@ -2,7 +2,6 @@ import Sort from "./Sort";
 
 export default class BubbleSort extends Sort {
   static colors = {
-    primary: 'primary',
     pivot: 'red',
     currentIteration: 'grey',
     swapping: 'yellow',
