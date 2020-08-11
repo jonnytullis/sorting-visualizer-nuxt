@@ -4,6 +4,7 @@ export default class Sort {
   stepTime = 0
   isExecuting = false
   arr = []
+  haltedMessage = 'Execution Halted'
 
   async sleep (ms = this.stepTime) {
     this.arr.push(new NodeClass(0, 0, 0, 'transparent'))
@@ -11,7 +12,7 @@ export default class Sort {
     this.forceUpdate()
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        return this.isExecuting ? resolve() : reject('Execution halted.')
+        return this.isExecuting ? resolve() : reject(this.haltedMessage)
       }, ms)
     })
   }
@@ -21,7 +22,13 @@ export default class Sort {
     this.arr = arr
     this.arr.colorRange(0, this.arr.length - 1, 'primary')
     dispatchEvent(new Event('start'))
-    await this.sort()
+    try {
+      await this.sort()
+    } catch(e) {
+      if (e.toString() !== this.haltedMessage) {
+        throw e
+      }
+    }
     this.stop()
     return new Promise(resolve => resolve())
   }
