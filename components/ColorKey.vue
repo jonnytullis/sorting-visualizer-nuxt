@@ -1,7 +1,6 @@
 <template>
   <v-row>
     <v-col
-      v-if="!prop.toLowerCase().includes('primary')"
       v-for="prop in Object.keys(colors)"
       :key="prop"
     >
