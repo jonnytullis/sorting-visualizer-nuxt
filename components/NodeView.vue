@@ -1,6 +1,6 @@
 <template>
   <div
-    :style="`height:${value.height}; width:${value.width}px;`"
+    :style="`height:${value.height}; width:${value.width}px; border: 1px solid ${$vuetify.theme.themes.dark.accent} !important;`"
     :class="value.color"
   >
     <div class="font-weight-bold label">

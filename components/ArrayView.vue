@@ -5,7 +5,7 @@
       :value="node"
       tile
       flat
-      :style="`margin-right: ${nodeMargin}px; align-self: flex-end;`"
+      :style="`align-self: flex-end;`"
     />
   </div>
 </template>
@@ -44,8 +44,7 @@ export default {
   data () {
     return {
       nodes: [],
-      nodeWidth: 100,
-      nodeMargin: 3
+      nodeWidth: 100
     }
   },
   mounted() {
@@ -69,10 +68,9 @@ export default {
       })
     },
     setNodeWidth () {
-      const tableMargin = 70
+      const tableMargin = 80
       const tableWidth = window.innerWidth - tableMargin
-      const totalMarginSpace = this.nodeMargin * this.numNodes
-      this.nodeWidth = Math.floor((tableWidth - totalMarginSpace) / this.numNodes)
+      this.nodeWidth = Math.floor(tableWidth / (this.numNodes + 1))
     },
     async sort () {
       this.$emit('start')
