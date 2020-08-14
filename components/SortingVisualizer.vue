@@ -82,27 +82,54 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-card elevation="6">
-      <v-toolbar v-show="$vuetify.breakpoint.mdAndUp" rounded>
-        <v-toolbar-title>
-          Color Key
-        </v-toolbar-title>
-        <color-key :colors="sortColors" />
-      </v-toolbar>
-      <v-row justify="center" style="font-size: 24px; height: 30px;">
-        {{ sortObject.status }}
-      </v-row>
-      <div style="height: 450px; padding: 20px;">
-        <array-view
-          ref="arrayView"
-          :num-nodes="numNodes"
-          :max-num="maxNodeValue"
-          :min-num="minNodeValue"
-          :sort-type="sortType"
-          :sort-object="sortObject"
-        />
-      </div>
-    </v-card>
+    <v-row>
+      <v-col
+        cols="12"
+        lg="9"
+        md="9"
+        sm="12"
+      >
+        <v-card elevation="6">
+          <v-toolbar v-show="$vuetify.breakpoint.mdAndUp" rounded>
+            <v-toolbar-title>
+              Color Key
+            </v-toolbar-title>
+            <color-key :colors="sortColors" />
+          </v-toolbar>
+          <div :style="`height: ${displayHeight}px; padding: 20px;`">
+            <array-view
+              ref="arrayView"
+              :num-nodes="numNodes"
+              :max-num="maxNodeValue"
+              :min-num="minNodeValue"
+              :sort-type="sortType"
+              :sort-object="sortObject"
+            />
+          </div>
+        </v-card>
+      </v-col>
+      <v-col
+        cols="12"
+        lg="3"
+        md="3"
+        sm="12"
+      >
+        <v-card
+          id="scroller"
+          elevation="6"
+          class="black white--text pa-4"
+          style="overflow-y: auto;"
+          :height="this.displayHeight + 65"
+        >
+          <b class="px-4">Status Output</b>
+          <v-divider class="my-4" />
+
+          <div v-for="str in statusOutput" class="px-4" style="font-family: monospace">
+            {{ str }}
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -137,15 +164,30 @@ export default {
       minNumNodes: 5,
       maxNumNodes: this.$vuetify.breakpoint.xsOnly ? 75 : 200,
       maxNodeValue: 200,
-      minNodeValue: 20
+      minNodeValue: 20,
+      statusOutput: [],
+      displayHeight: 450
     }
   },
   created() {
     window.addEventListener('start', () => {
+      this.statusOutput = []
       this.isExecuting = true
     })
     window.addEventListener('stop', () => {
       this.isExecuting = false
+    })
+    window.addEventListener('statusUpdate', (event) =>  {
+      if (this.statusOutput.length > 0) {
+        const lastIndex = this.statusOutput.length - 1
+        if (this.statusOutput[lastIndex] !== event.detail) {
+          this.statusOutput.push(event.detail)
+        }
+      } else {
+        this.statusOutput.push(event.detail)
+      }
+      // Keep the scroller scrolled to the bottom
+      document.getElementById('scroller').scroll(0, this.displayHeight)
     })
   },
   methods: {

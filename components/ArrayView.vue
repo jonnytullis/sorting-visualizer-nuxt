@@ -1,11 +1,11 @@
 <template>
-  <div style="height: 100%; display: flex; justify-content: center;">
+  <div id="arrayView" style="height: 100%; display: flex; justify-content: center;">
     <node-view
       v-for="node of nodes"
       :value="node"
       tile
       flat
-      :style="`align-self: flex-end;`"
+      style="align-self: flex-end;"
     />
   </div>
 </template>
@@ -49,6 +49,7 @@ export default {
   },
   mounted() {
     this.init()
+    window.onresize = this.setNodeWidth
   },
   methods: {
     init () {
@@ -68,8 +69,8 @@ export default {
       })
     },
     setNodeWidth () {
-      const tableMargin = 80
-      const tableWidth = window.innerWidth - tableMargin
+      const padding = 10
+      const tableWidth = document.getElementById('arrayView').parentElement.clientWidth - padding
       this.nodeWidth = Math.floor(tableWidth / (this.numNodes + 1))
     },
     async sort () {
@@ -88,11 +89,6 @@ export default {
       for (const node of this.nodes) {
         node.color = color
       }
-    }
-  },
-  watch: {
-    'nodes.length': function () {
-      this.$forceUpdate()
     }
   }
 }

@@ -4,12 +4,13 @@ export default class Sort {
   stepTime = 0
   isExecuting = false
   arr = []
-  status = ''
   haltedMessage = 'Execution Halted'
 
+  updateStatus(message) {
+    window.dispatchEvent(new CustomEvent('statusUpdate', { detail: message }))
+  }
+
   async sleep (ms = this.stepTime) {
-    this.arr.push(new NodeClass(0, 0, 0, 'transparent'))
-    this.arr.pop()
     this.forceUpdate()
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -40,7 +41,7 @@ export default class Sort {
   // Override this function in children
   sort() {}
 
-  /** The view updates when array length changes (see WATCHER in 'components/ArrayView.vue') **/
+  /** The view updates when array length changes **/
   forceUpdate () {
     this.arr.push(new NodeClass(0, 0, 0, 'transparent'))
     this.arr.pop()
