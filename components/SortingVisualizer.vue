@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row class="my-6" justify="space-between" align="center">
+    <v-row justify="space-between" align="center">
       <v-col cols="12" lg="5" md="5">
         <v-slider
           v-model="numNodes"
@@ -86,17 +86,20 @@
       <v-col
         cols="12"
         lg="9"
-        md="9"
+        md="12"
         sm="12"
       >
         <v-card elevation="6">
-          <v-toolbar v-show="$vuetify.breakpoint.mdAndUp" rounded>
+          <v-toolbar v-show="$vuetify.breakpoint.mdAndUp" dense>
             <v-toolbar-title>
               Color Key
             </v-toolbar-title>
-            <color-key :colors="sortColors" />
+            <v-spacer />
+            <div style="width: 80%">
+              <color-key :colors="sortColors" />
+            </div>
           </v-toolbar>
-          <div :style="`height: ${displayHeight}px; padding: 20px;`">
+          <div :style="`height:${displayHeight}px;`" class="py-4">
             <array-view
               ref="arrayView"
               :num-nodes="numNodes"
@@ -111,21 +114,21 @@
       <v-col
         cols="12"
         lg="3"
-        md="3"
+        md="12"
         sm="12"
       >
-        <v-card
-          id="scroller"
-          elevation="6"
-          class="black white--text pa-4"
-          style="overflow-y: auto;"
-          :height="this.displayHeight + 65"
-        >
-          <b class="px-4">Status Output</b>
-          <v-divider class="my-4" />
-
-          <div v-for="str in statusOutput" class="px-4" style="font-family: monospace">
-            {{ str }}
+        <v-card elevation="6">
+          <v-toolbar dense>
+            <v-toolbar-title>Status Output</v-toolbar-title>
+          </v-toolbar>
+          <div
+            id="scroller"
+            :style="`height:${displayHeight}px`"
+            style="overflow-y: auto;"
+          >
+            <div v-for="str in statusOutput" class="px-4" style="font-family: monospace">
+              {{ str }}
+            </div>
           </div>
         </v-card>
       </v-col>
@@ -166,7 +169,7 @@ export default {
       maxNodeValue: 200,
       minNodeValue: 20,
       statusOutput: [],
-      displayHeight: 450
+      displayHeight: 425
     }
   },
   created() {

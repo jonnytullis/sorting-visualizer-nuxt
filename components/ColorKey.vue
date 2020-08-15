@@ -1,11 +1,11 @@
 <template>
-  <v-row>
+  <v-row no-gutters>
     <v-col
       v-for="prop in Object.keys(colors)"
       :key="prop"
     >
       <v-layout justify-center align-center>
-        <div style="width: 25px; height: 25px; border-radius: 5px;" :class="`${colors[prop]} mr-4`" />
+        <div style="width: 20px; height: 20px; border-radius: 50%;" :class="`${colors[prop]} mr-2`" />
         {{ formatText(prop) }}
       </v-layout>
     </v-col>
