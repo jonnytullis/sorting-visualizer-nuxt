@@ -43,35 +43,39 @@ export default {
   },
   data () {
     return {
-      nodes: [],
-      nodeWidth: 100
+      nodes: []
     }
   },
   mounted() {
     this.init()
-    window.onresize = this.setNodeWidth
+    window.onresize = () => {
+      this.setNodeWidth()
+    }
   },
   methods: {
     init () {
       this.nodes = []
       this.$nextTick(() => {
-        this.setNodeWidth()
         this.colorAll('primary')
         for (let i = 0; i < this.numNodes; i++) {
           const num = Math.floor(Math.random() * (this.maxNum - this.minNum) + this.minNum)
           this.nodes.push(new NodeClass(
             num,
-            this.nodeWidth,
+            100,
             `${Math.floor((num / this.maxNum) * 100)}%`,
             'primary'
           ))
         }
+        this.setNodeWidth()
       })
     },
     setNodeWidth () {
       const padding = 10
       const tableWidth = document.getElementById('arrayView').parentElement.clientWidth - padding
-      this.nodeWidth = Math.floor(tableWidth / (this.numNodes + 1))
+      const nodeWidth = Math.floor(tableWidth / (this.numNodes + 1))
+      for (const node of this.nodes) {
+        node.width = nodeWidth
+      }
     },
     async sort () {
       this.$emit('start')
