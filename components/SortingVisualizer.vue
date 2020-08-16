@@ -126,7 +126,7 @@
         md="12"
         sm="12"
       >
-        <v-card elevation="6">
+        <v-card elevation="6" class="pb-2">
           <v-toolbar dense class="mb-2">
             <v-toolbar-title>Status Output</v-toolbar-title>
           </v-toolbar>
@@ -195,13 +195,12 @@ export default {
       } else {
         this.statusOutput.push(event.detail)
       }
-      // Keep the scroller scrolled to the bottom
-      document.getElementById('scroller').scroll(0, this.displayHeight)
     })
   },
   methods: {
     generateNewArray() {
       this.$refs.arrayView.init()
+      this.statusOutput = []
     },
     sort() {
       try {

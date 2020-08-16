@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: "StatusOutput",
   props: {
@@ -22,6 +24,30 @@ export default {
       type: Number | String,
       default: 450
     }
+  },
+  data() {
+    return {
+      userScrolled: false
+    }
+  },
+  mounted() {
+    const scroller = document.getElementById('scroller')
+
+    window.addEventListener('statusUpdate', () => {
+      // Keep the scroller pinned to the bottom unless user scrolls
+      Vue.nextTick(() => {
+        if (!this.userScrolled) {
+          document.getElementById('scroller').scrollTop = scroller.scrollHeight
+        }
+      })
+    })
+
+    scroller.addEventListener('scroll', () => {
+      Vue.nextTick(() => {
+        // The user has scrolled if the scroll position minus offset is less than the height
+        this.userScrolled = (scroller.scrollHeight - scroller.scrollTop) > this.height
+      })
+    })
   }
 }
 </script>
