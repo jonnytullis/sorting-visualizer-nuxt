@@ -3,8 +3,10 @@
     <v-col
       v-for="prop in Object.keys(colors)"
       :key="prop"
+      :cols="vertical ? 12 : null"
+      :class="vertical ? 'my-1' : null"
     >
-      <v-layout justify-center align-center>
+      <v-layout :justify-center="!vertical" align-center>
         <div style="width: 20px; height: 20px; border-radius: 50%;" :class="`${colors[prop]} mr-2`" />
         {{ formatText(prop) }}
       </v-layout>
@@ -19,6 +21,10 @@ export default {
   props: {
     colors: {
       type: Object
+    },
+    vertical: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

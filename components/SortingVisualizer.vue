@@ -83,21 +83,30 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col
-        cols="12"
-        lg="9"
-        md="12"
-        sm="12"
-      >
+      <v-col>
         <v-card elevation="6">
-          <v-toolbar v-show="$vuetify.breakpoint.mdAndUp" dense>
-            <v-toolbar-title>
-              Color Key
-            </v-toolbar-title>
-            <v-spacer />
-            <div style="width: 80%">
+          <v-toolbar v-if="$vuetify.breakpoint.mdAndUp" dense>
+            <div style="width: 100%">
               <color-key :colors="sortColors" />
             </div>
+          </v-toolbar>
+          <v-toolbar v-else>
+            <v-spacer />
+            <v-toolbar-items>
+              <v-dialog max-width="200">
+                <template #activator="{ on }">
+                  <v-btn icon v-on="on">
+                    <v-icon>mdi-menu</v-icon>
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-toolbar class="mb-2">
+                    <v-toolbar-title>Color Key</v-toolbar-title>
+                  </v-toolbar>
+                  <color-key :colors="sortColors" :vertical="true" class="px-5 pb-2" />
+                </v-card>
+              </v-dialog>
+            </v-toolbar-items>
           </v-toolbar>
           <div :style="`height:${displayHeight}px;`" class="py-4">
             <array-view
@@ -113,23 +122,18 @@
       </v-col>
       <v-col
         cols="12"
-        lg="3"
+        lg="4"
         md="12"
         sm="12"
       >
         <v-card elevation="6">
-          <v-toolbar dense>
+          <v-toolbar dense class="mb-2">
             <v-toolbar-title>Status Output</v-toolbar-title>
           </v-toolbar>
-          <div
-            id="scroller"
-            :style="`height:${displayHeight}px`"
-            style="overflow-y: auto;"
-          >
-            <div v-for="str in statusOutput" class="px-4" style="font-family: monospace">
-              {{ str }}
-            </div>
-          </div>
+          <StatusOutput
+            :items="statusOutput"
+            :height="$vuetify.breakpoint.lgAndUp ? displayHeight : displayHeight / 2.2"
+          />
         </v-card>
       </v-col>
     </v-row>
@@ -144,6 +148,7 @@ import QuickSort from "../assets/algorithms/QuickSort";
 import MergeSort from "../assets/algorithms/MergeSort";
 import HeapSort from "../assets/algorithms/HeapSort";
 import BubbleSort from "../assets/algorithms/BubbleSort";
+import StatusOutput from "@/components/StatusOutput";
 
 let quickSort = new QuickSort()
 let mergeSort = new MergeSort()
@@ -153,6 +158,7 @@ let bubbleSort = new BubbleSort()
 export default {
   name: "SortingVisualizer",
   components: {
+    StatusOutput,
     ColorKey,
     ArrayView
   },
