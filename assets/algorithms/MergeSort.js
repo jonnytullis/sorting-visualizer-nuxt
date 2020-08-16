@@ -9,6 +9,7 @@ export default class MergeSort extends Sort {
 
   async sort () {
     await this.mergeSort(0, this.arr.length - 1)
+    this.updateStatus('Array sorted!')
     return new Promise(resolve => resolve(this.arr))
   }
 
@@ -19,6 +20,7 @@ export default class MergeSort extends Sort {
       await this.mergeSort(middle + 1, right)
       await this.merge(left, middle, right)
 
+      this.updateStatus('Merge complete')
       this.arr.colorRange(left, right, MergeSort.colors.sorted)
       if (left !== 0 || right !== this.arr.length - 1) {
         await this.sleep()
@@ -33,12 +35,16 @@ export default class MergeSort extends Sort {
   // First subarray is arr[left..middle]
   // Second subarray is arr[middle + 1..right]
   async merge (left, middle, right) {
+    this.updateStatus(`Created sub-arrays [${left}-${middle}] & [${middle + 1}-${right}]`)
+
     this.arr.colorRange(left, middle, MergeSort.colors.leftSubArray) // Left Subarray
     this.arr.colorRange(middle + 1, right, MergeSort.colors.rightSubArray) // Right Subarray
     await this.sleep()
 
     let currentLeft = left
     let currentRight = middle + 1
+
+    this.updateStatus('Merging sub-arrays...')
 
     for (let i = left; i <= right; i++) {
       if (currentLeft < right) {

@@ -126,13 +126,14 @@
         md="12"
         sm="12"
       >
-        <v-card elevation="6" class="pb-2">
-          <v-toolbar dense class="mb-2">
+        <v-card elevation="6">
+          <v-toolbar dense>
             <v-toolbar-title>Status Output</v-toolbar-title>
           </v-toolbar>
           <StatusOutput
+            class="py-2"
             :items="statusOutput"
-            :height="$vuetify.breakpoint.lgAndUp ? displayHeight : displayHeight / 2.2"
+            :height="displayHeight"
           />
         </v-card>
       </v-col>
@@ -250,13 +251,13 @@ export default {
     stepTime() {
       switch (this.speed) {
         case 0:
-          return 1000
+          return 2000
         case 1:
-          return 500
+          return 800
         case 2:
-          return 200
+          return 300
         case 3:
-          return 50
+          return 100
         case 4:
           return 0
       }
