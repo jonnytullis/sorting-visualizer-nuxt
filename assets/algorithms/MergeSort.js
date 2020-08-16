@@ -9,7 +9,6 @@ export default class MergeSort extends Sort {
 
   async sort () {
     await this.mergeSort(0, this.arr.length - 1)
-    this.updateStatus('Array sorted!')
     return new Promise(resolve => resolve(this.arr))
   }
 

@@ -18,6 +18,7 @@ export default class QuickSort extends Sort {
   async quickSort (low, high) {
     if (low <= high) {
       const pivotIndex = await this.partition(low, high)
+      this.updateStatus('Pivot sorted')
       this.arr[pivotIndex].color = QuickSort.colors.sorted
       await this.sleep()
       await this.quickSort(low, pivotIndex - 1)
