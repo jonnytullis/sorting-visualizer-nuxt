@@ -3,8 +3,9 @@
     id="scroller"
     :style="`height:${height}px`"
     style="overflow-y: auto;"
+    class="py-2 px-4"
   >
-    <div v-for="str in items" class="px-4" style="font-family: monospace">
+    <div v-for="str in items" style="font-family: monospace">
       {{ str }}
     </div>
   </div>

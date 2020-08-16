@@ -27,11 +27,15 @@ export default class QuickSort extends Sort {
   }
 
   async partition (low, high) {
+    this.arr.colorRange(low, high, 'primary')
+    this.updateStatus(`Created sub-array [${low}-${high}]. Pivot = [${high}]`)
     let pivot = this.arr[high]
     pivot.color = QuickSort.colors.pivot
     await this.sleep()
 
     let i = low - 1 // latest index less than the pivot value. Starts as -1
+
+    this.updateStatus('Partitioning sub-array...')
 
     for (let j = low; j <= high - 1; j++) {
       this.arr[j].color = QuickSort.colors.currentIteration

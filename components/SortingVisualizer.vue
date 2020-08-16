@@ -131,9 +131,8 @@
             <v-toolbar-title>Status Output</v-toolbar-title>
           </v-toolbar>
           <StatusOutput
-            class="py-2"
             :items="statusOutput"
-            :height="displayHeight"
+            :height="$vuetify.breakpoint.lgAndUp ? displayHeight : displayHeight / 2.2"
           />
         </v-card>
       </v-col>
