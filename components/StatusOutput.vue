@@ -33,7 +33,7 @@ export default {
   mounted() {
     const scroller = document.getElementById('scroller')
 
-    window.addEventListener('statusUpdate', () => {
+    window.addEventListener('updateStatus', () => {
       // Keep the scroller pinned to the bottom unless user scrolls
       Vue.nextTick(() => {
         if (!this.userScrolled) {

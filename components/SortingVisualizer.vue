@@ -186,7 +186,7 @@ export default {
     window.addEventListener('stop', () => {
       this.isExecuting = false
     })
-    window.addEventListener('statusUpdate', (event) =>  {
+    window.addEventListener('updateStatus', (event) =>  {
       if (this.statusOutput.length > 0) {
         const lastIndex = this.statusOutput.length - 1
         if (this.statusOutput[lastIndex] !== event.detail) {

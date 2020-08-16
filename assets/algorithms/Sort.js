@@ -7,7 +7,7 @@ export default class Sort {
   haltedMessage = 'Execution Halted'
 
   updateStatus(message) {
-    window.dispatchEvent(new CustomEvent('statusUpdate', { detail: message }))
+    window.dispatchEvent(new CustomEvent('updateStatus', { detail: message }))
   }
 
   async sleep (ms = this.stepTime) {
