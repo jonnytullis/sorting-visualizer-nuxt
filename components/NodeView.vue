@@ -1,7 +1,8 @@
 <template>
-  <div style="height: 100%; display: flex; padding-bottom: 20px;">
+  <div style="height: 100%; display: flex; padding-bottom: 22px;">
     <div
-      :style="`height:${value.height}; width:${value.width}px; border: 1px solid ${$vuetify.theme.themes.dark.accent} !important; align-self: flex-end;`"
+      :style="`height:${value.height}; width:${value.width}px; border: 1px solid` +
+        `${$vuetify.theme.themes.dark.accent} !important; align-self: flex-end;`"
       :class="value.color"
     >
       <div class="label font-weight-bold">

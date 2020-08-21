@@ -5,6 +5,15 @@
       app
     >
       <v-toolbar-title v-text="title" />
+      <v-spacer />
+      <v-toolbar-items>
+        <v-btn :icon="$vuetify.breakpoint.xsOnly" href="https://github.com/jonnytullis/sorting-visualizer">
+          <v-icon large>mdi-github</v-icon>
+          <div v-if="!$vuetify.breakpoint.xsOnly" class="ms-2">
+            Source Code
+          </div>
+        </v-btn>
+      </v-toolbar-items>
     </v-app-bar>
     <v-main>
       <v-container fluid>

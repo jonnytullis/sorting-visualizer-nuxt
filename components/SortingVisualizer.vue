@@ -55,6 +55,7 @@
           :items="sortTypeOptions"
           item-color="secondary"
           background-color="accent"
+          color="secondary"
           :disabled="isExecuting"
           label="Type"
           filled
@@ -68,7 +69,7 @@
           <v-icon class="mr-2">
             mdi-restore
           </v-icon>
-          Regenerate
+          New Array
         </v-btn>
       </v-col>
       <v-col cols="12" lg="2" md="2">
@@ -82,61 +83,50 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
-        <v-card elevation="6">
-          <v-toolbar v-if="$vuetify.breakpoint.mdAndUp" dense>
-            <div style="width: 100%">
-              <color-key :colors="sortColors" />
-            </div>
-          </v-toolbar>
-          <v-toolbar v-else>
-            <v-spacer />
-            <v-toolbar-items>
-              <v-dialog max-width="200">
-                <template #activator="{ on }">
-                  <v-btn icon v-on="on">
-                    <v-icon>mdi-menu</v-icon>
-                  </v-btn>
-                </template>
-                <v-card>
-                  <v-toolbar class="mb-2">
-                    <v-toolbar-title>Color Key</v-toolbar-title>
-                  </v-toolbar>
-                  <color-key :colors="sortColors" :vertical="true" class="px-5 pb-2" />
-                </v-card>
-              </v-dialog>
-            </v-toolbar-items>
-          </v-toolbar>
-          <div :style="`height:${displayHeight}px;`" class="py-4">
-            <array-view
-              ref="arrayView"
-              :num-nodes="numNodes"
-              :max-num="maxNodeValue"
-              :min-num="minNodeValue"
-              :sort-type="sortType"
-              :sort-object="sortObject"
-            />
-          </div>
-        </v-card>
-      </v-col>
-      <v-col
-        cols="12"
-        lg="4"
-        md="12"
-        sm="12"
-      >
-        <v-card elevation="6">
-          <v-toolbar dense>
-            <v-toolbar-title>Status Output</v-toolbar-title>
-          </v-toolbar>
-          <StatusOutput
-            :items="statusOutput"
-            :height="$vuetify.breakpoint.lgAndUp ? displayHeight : displayHeight / 2.2"
-          />
-        </v-card>
-      </v-col>
-    </v-row>
+    <v-card elevation="6">
+      <v-toolbar v-if="$vuetify.breakpoint.mdAndUp" dense>
+        <div style="width: 100%">
+          <color-key :colors="sortColors" />
+        </div>
+      </v-toolbar>
+      <v-toolbar v-else>
+        <v-spacer />
+        <v-toolbar-items>
+          <v-dialog max-width="200">
+            <template #activator="{ on }">
+              <v-btn icon v-on="on">
+                <v-icon>mdi-menu</v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-toolbar class="mb-2">
+                <v-toolbar-title>Color Key</v-toolbar-title>
+              </v-toolbar>
+              <color-key :colors="sortColors" :vertical="true" class="px-5 pb-2" />
+            </v-card>
+          </v-dialog>
+        </v-toolbar-items>
+      </v-toolbar>
+      <div :style="`height:${displayHeight}px;`" class="py-4">
+        <array-view
+          ref="arrayView"
+          :num-nodes="numNodes"
+          :max-num="maxNodeValue"
+          :min-num="minNodeValue"
+          :sort-type="sortType"
+          :sort-object="sortObject"
+        />
+      </div>
+    </v-card>
+    <v-card elevation="6" class="mt-8">
+      <v-toolbar dense>
+        <v-toolbar-title>Status Output</v-toolbar-title>
+      </v-toolbar>
+      <StatusOutput
+        :items="statusOutput"
+        :height="displayHeight / 2.2"
+      />
+    </v-card>
   </v-container>
 </template>
 
@@ -166,7 +156,7 @@ export default {
     return {
       numNodes: 10,
       sortTypeOptions: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
-      sortType: 'Bubble Sort',
+      sortType: 'Quick Sort',
       speed: 1,
       isExecuting: false,
       maxStepTime: 2000,
