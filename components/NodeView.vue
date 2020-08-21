@@ -1,12 +1,19 @@
 <template>
-  <div
-    :style="`height:${value.height}; width:${value.width}px; border: 1px solid ${$vuetify.theme.themes.dark.accent} !important;`"
-    :class="value.color"
-  >
-    <div class="font-weight-bold label">
-      <span :style="`font-size: ${fontSize}px`">
-        {{ value.value }}
-      </span>
+  <div style="height: 100%; display: flex; padding-bottom: 20px;">
+    <div
+      :style="`height:${value.height}; width:${value.width}px; border: 1px solid ${$vuetify.theme.themes.dark.accent} !important; align-self: flex-end;`"
+      :class="value.color"
+    >
+      <div class="label font-weight-bold">
+        <span :style="`font-size: ${labelFontSize}px`">
+          {{ value.value }}
+        </span>
+      </div>
+      <div class="index pt-1">
+        <span :style="`font-size: ${labelFontSize > 0 ? 14 : 0}px`">
+          {{ value.index }}
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -21,7 +28,7 @@ export default {
     }
   },
   computed: {
-    fontSize () {
+    labelFontSize () {
       switch (true) {
         case (this.value.width > 100):
           return 30
@@ -47,6 +54,18 @@ export default {
   }
 
   .label span {
+    align-self: flex-end;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .index {
+    margin: auto;
+    width: 40px;
+    display: flex;
+  }
+
+  .index span {
     align-self: flex-end;
     margin-left: auto;
     margin-right: auto;

@@ -5,7 +5,6 @@
       :value="node"
       tile
       flat
-      style="align-self: flex-end;"
     />
   </div>
 </template>
@@ -60,6 +59,7 @@ export default {
         for (let i = 0; i < this.numNodes; i++) {
           const num = Math.floor(Math.random() * (this.maxNum - this.minNum) + this.minNum)
           this.nodes.push(new NodeClass(
+            i,
             num,
             100,
             `${Math.floor((num / this.maxNum) * 100)}%`,

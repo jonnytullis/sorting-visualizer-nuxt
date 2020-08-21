@@ -43,7 +43,7 @@ export default class Sort {
 
   /** The view updates when array length changes **/
   forceUpdate () {
-    this.arr.push(new NodeClass(0, 0, 0, 'transparent'))
+    this.arr.push(new NodeClass(0, 0, 0, 0, 'transparent'))
     this.arr.pop()
   }
 
