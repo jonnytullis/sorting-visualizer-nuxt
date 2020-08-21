@@ -164,7 +164,7 @@ export default {
   },
   data() {
     return {
-      numNodes: 20,
+      numNodes: 10,
       sortTypeOptions: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
       sortType: 'Bubble Sort',
       speed: 1,
