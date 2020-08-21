@@ -94,7 +94,7 @@
         <v-toolbar-items>
           <v-dialog v-model="colorDialog" max-width="200">
             <template #activator="{ on }">
-              <v-btn v-on="on">
+              <v-btn class="mr-n4" v-on="on">
                 Colors
                 <v-icon class="ms-2">mdi-menu</v-icon>
               </v-btn>
