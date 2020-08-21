@@ -54,6 +54,9 @@ export default {
   */
   buildModules: [
     '@nuxtjs/vuetify',
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-175998393-1'
+    }],
   ],
   /*
   ** Router for GH_PAGES
