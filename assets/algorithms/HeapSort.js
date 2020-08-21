@@ -2,11 +2,11 @@ import Sort from "./Sort"
 
 export default class HeapSort extends Sort {
   static colors = {
+    rootNode: 'grey',
     parentNode: 'red',
     leftChild: 'orange',
     rightChild: 'purple',
     swapping: 'yellow',
-    rootNode: 'grey',
     sorted: 'success'
   }
 

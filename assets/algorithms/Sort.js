@@ -28,7 +28,6 @@ export default class Sort {
       await this.sort()
       this.updateStatus('COMPLETE!')
       await this.sleep(this.stepTime < 500 ? 500 : this.stepTime)
-      this.arr.colorRange(0, this.arr.length - 1, 'primary')
     } catch(e) {
       if (e.toString() !== this.haltedMessage) {
         throw e

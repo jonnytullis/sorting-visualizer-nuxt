@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="px-0 pb-0">
     <v-row justify="space-between" align="center">
       <v-col cols="12" lg="5" md="5">
         <v-slider
@@ -118,13 +118,13 @@
         />
       </div>
     </v-card>
-    <v-card elevation="6" class="mt-8">
+    <v-card elevation="6" class="mt-6">
       <v-toolbar dense>
         <v-toolbar-title>Status Output</v-toolbar-title>
       </v-toolbar>
       <StatusOutput
         :items="statusOutput"
-        :height="displayHeight / 2.2"
+        height="180"
       />
     </v-card>
   </v-container>
@@ -162,7 +162,7 @@ export default {
       maxStepTime: 2000,
       minNumNodes: 5,
       maxNumNodes: this.$vuetify.breakpoint.xsOnly ? 75 : 200,
-      maxNodeValue: 200,
+      maxNodeValue: 150,
       minNodeValue: 20,
       statusOutput: [],
       displayHeight: 425
