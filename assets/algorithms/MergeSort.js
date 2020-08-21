@@ -19,7 +19,7 @@ export default class MergeSort extends Sort {
       await this.mergeSort(middle + 1, right)
       await this.merge(left, middle, right)
 
-      this.updateStatus('Merge complete')
+      this.updateStatus('Finished merging')
       this.arr.colorRange(left, right, MergeSort.colors.sorted)
       if (left !== 0 || right !== this.arr.length - 1) {
         await this.sleep()

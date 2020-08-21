@@ -166,7 +166,7 @@ export default {
     return {
       numNodes: 20,
       sortTypeOptions: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Bubble Sort'],
-      sortType: 'Heap Sort',
+      sortType: 'Bubble Sort',
       speed: 1,
       isExecuting: false,
       maxStepTime: 2000,
