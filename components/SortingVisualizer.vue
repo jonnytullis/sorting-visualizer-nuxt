@@ -92,7 +92,7 @@
       <v-toolbar v-else>
         <v-spacer />
         <v-toolbar-items>
-          <v-dialog max-width="200">
+          <v-dialog v-model="colorDialog" max-width="200">
             <template #activator="{ on }">
               <v-btn v-on="on">
                 Colors
@@ -100,8 +100,14 @@
               </v-btn>
             </template>
             <v-card>
-              <v-toolbar class="mb-2">
+              <v-toolbar dense class="mb-2">
                 <v-toolbar-title>Color Key</v-toolbar-title>
+                <v-spacer />
+                <v-toolbar-items>
+                  <v-btn icon class="mr-n4" @click="colorDialog = false">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </v-toolbar-items>
               </v-toolbar>
               <color-key :colors="sortColors" :vertical="true" class="px-5 pb-2" />
             </v-card>
@@ -166,7 +172,8 @@ export default {
       maxNodeValue: 150,
       minNodeValue: 20,
       statusOutput: [],
-      displayHeight: 425
+      displayHeight: 425,
+      colorDialog: false
     }
   },
   created() {
