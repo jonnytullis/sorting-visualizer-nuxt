@@ -21,7 +21,7 @@ export default class HeapSort extends Sort {
     for (let i = Math.floor(end / 2) - 1; i >= 0; i--) {
       await this.heapify(end, i)
     }
-    this.updateStatus('Finished heap. Root node is now largest.')
+    this.updateStatus('Finished heap. Root node is now largest')
     await this.sleep()
 
     // One by one extract an element from heap
@@ -39,7 +39,7 @@ export default class HeapSort extends Sort {
 
       this.updateStatus('Building balanced heap...')
       await this.heapify(i, 0)
-      this.updateStatus('Finished heap. Root node is now largest.')
+      this.updateStatus('Finished heap. Root node is now largest')
       await this.sleep()
     }
 
