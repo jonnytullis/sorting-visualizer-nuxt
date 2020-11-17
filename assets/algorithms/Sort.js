@@ -53,10 +53,14 @@ export default class Sort {
   }
 }
 
+/** Prototype functions built specifically for manipulating arrays with item type NodeClass **/
 Array.prototype.swap = function (x, y) {
-  const temp = this[x]
+  let temp = this[x]
   this[x] = this[y]
   this[y] = temp
+  temp = this[x].index
+  this[x].index = this[y].index
+  this[y].index = temp
 }
 
 Array.prototype.moveIndex = function(target, destination) {
@@ -64,13 +68,16 @@ Array.prototype.moveIndex = function(target, destination) {
   if (target > destination) {
     for (let i = target; i > destination; i--) {
       this[i] = this[i - 1]
+      this[i].index++
     }
   } else if (target < destination) {
     for (let i = target; i < destination; i++) {
       this[i] = this[i + 1]
+      this[i].index--
     }
   }
   this[destination] = temp
+  this[destination].index = destination
 }
 
 Array.prototype.isSorted = function () {
